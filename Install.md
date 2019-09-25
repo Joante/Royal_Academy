@@ -18,15 +18,19 @@ Requisitos para instalar esta aplicación:
  		2) Dentro del menú seleccionar URL.
  		3) Dentro del menú URL copiar en URL: https://github.com/Joante/Royal_Academy y luego seleccionar la carpeta de destino, la cual debería ser la carpeta www dentro del directorio de wampp o xampp.
 
+ 	- Git Bash: 
+ 		1) Dentro de la carpeta www ejecutar el siguiente comando: \n
+ 			git clone https://github.com/Joante/Royal_Academy
+
  3) Configurar los parametros de la aplicación para su conexión con la base de datos:
  	1) Dentro de la carpeta /app/config del proyecto copiar el archivo parameters.yml.dist y nombrarlo parameters.yml
- 	2) Modificar:
+ 	2) Modificar: \n
  		database_user: root
     	database_password: null
 
     	Por los valores correspondientes.
 
- 4) En la carpeta principal del proyecto correr el siguiente comando con la consola de Windows: 
+ 4) En la carpeta principal del proyecto correr el siguiente comando con la consola de Windows: \n
  	install.bat
 
  	Esto instalara composer y creara la base de datos.
