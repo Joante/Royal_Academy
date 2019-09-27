@@ -30,7 +30,9 @@ Requisitos para instalar esta aplicación:
 
     	Por los valores correspondientes.
 
- 4) En la carpeta principal del proyecto correr el siguiente comando con la consola de Windows:
+ 4) Descomprimir el archivo vendor.zip dentro de la carpeta raiz del proyecto.
+
+ 5) En la carpeta principal del proyecto correr el siguiente comando con la consola de Windows:
  	- install.bat
 
  	Esto instalara composer y creara la base de datos.

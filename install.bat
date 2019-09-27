@@ -8,3 +8,5 @@ php console doctrine:database:drop --force
 php console doctrine:database:create
 php console doctrine:schema:update --force
 php console cache:clear 
+
+cd ..
