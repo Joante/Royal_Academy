@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Administrador</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ administrador.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ administrador.email }}</td>
+            </tr>
+            <tr>
+                <th>Idadministrador</th>
+                <td>{{ administrador.idadministrador }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_edit', { 'idadministrador': administrador.idadministrador }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

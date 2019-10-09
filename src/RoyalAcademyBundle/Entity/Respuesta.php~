@@ -1,0 +1,74 @@
+<?php
+
+namespace RoyalAcademyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Respuesta
+ *
+ * @ORM\Table(name="respuesta", indexes={@ORM\Index(name="fk_respuesta_Pregunta1_idx", columns={"Pregunta_idPregunta"})})
+ * @ORM\Entity
+ */
+class Respuesta
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="descripcion", type="string", length=45, nullable=true)
+     */
+    private $descripcion;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="esCorrecta", type="boolean", nullable=true)
+     */
+    private $escorrecta;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idrespuesta", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idrespuesta;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Pregunta
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Pregunta")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Pregunta_idPregunta", referencedColumnName="idPregunta")
+     * })
+     */
+    private $preguntapregunta;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Examenrealizado", inversedBy="respuestarespuesta")
+     * @ORM\JoinTable(name="examenrealizado_has_respuesta",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="respuesta_idrespuesta", referencedColumnName="idrespuesta")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="ExamenRealizado_idExamenRealizado", referencedColumnName="idExamenRealizado")
+     *   }
+     * )
+     */
+    private $examenrealizadoexamenrealizado;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->examenrealizadoexamenrealizado = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

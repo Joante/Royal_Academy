@@ -1,0 +1,94 @@
+<?php
+
+namespace RoyalAcademyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Examenrealizado
+ *
+ * @ORM\Table(name="examenrealizado", indexes={@ORM\Index(name="fk_ExamenRealizado_Alumno1_idx", columns={"Alumno_idAlumno"})})
+ * @ORM\Entity
+ */
+class Examenrealizado
+{
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="estaCompletado", type="boolean", nullable=true)
+     */
+    private $estacompletado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nota", type="integer", nullable=true)
+     */
+    private $nota;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="informado", type="boolean", nullable=true)
+     */
+    private $informado;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="turno", type="integer", nullable=true)
+     */
+    private $turno;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fecha", type="date", nullable=true)
+     */
+    private $fecha;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="fechaInicio", type="datetime", nullable=true)
+     */
+    private $fechainicio;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idExamenRealizado", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idexamenrealizado;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Alumno
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Alumno")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Alumno_idAlumno", referencedColumnName="idAlumno")
+     * })
+     */
+    private $alumnoalumno;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="examenrealizadoexamenrealizado")
+     */
+    private $respuestarespuesta;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->respuestarespuesta = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

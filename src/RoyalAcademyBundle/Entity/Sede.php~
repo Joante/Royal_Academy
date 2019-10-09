@@ -1,0 +1,45 @@
+<?php
+
+namespace RoyalAcademyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Sede
+ *
+ * @ORM\Table(name="sede", indexes={@ORM\Index(name="fk_Sede_Pais_idx", columns={"Pais_idPais"})})
+ * @ORM\Entity
+ */
+class Sede
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nombre", type="string", length=45, nullable=false)
+     */
+    private $nombre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idSede", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idsede;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Pais
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Pais")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Pais_idPais", referencedColumnName="idPais")
+     * })
+     */
+    private $paispais;
+
+
+}
+

@@ -1,0 +1,59 @@
+<?php
+
+namespace RoyalAcademyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Carrera
+ *
+ * @ORM\Table(name="carrera", indexes={@ORM\Index(name="fk_Carrera_Sede1_idx", columns={"Sede_idSede"})})
+ * @ORM\Entity
+ */
+class Carrera
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nombre", type="string", length=45, nullable=false)
+     */
+    private $nombre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idCarrera", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idcarrera;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Sede
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Sede")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Sede_idSede", referencedColumnName="idSede")
+     * })
+     */
+    private $sedesede;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Materia", mappedBy="carreracarrera")
+     */
+    private $materiamateria;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->materiamateria = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

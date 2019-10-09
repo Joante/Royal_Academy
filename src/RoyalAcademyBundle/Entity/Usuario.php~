@@ -1,0 +1,52 @@
+<?php
+
+namespace RoyalAcademyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Usuario
+ *
+ * @ORM\Table(name="usuario", indexes={@ORM\Index(name="fk_Usuario_RolUsuario1_idx", columns={"RolUsuario_idRolUsuario"})})
+ * @ORM\Entity
+ */
+class Usuario
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Usuario", type="string", length=10, nullable=false)
+     */
+    private $usuario;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Contrasenia", type="string", length=45, nullable=false)
+     */
+    private $contrasenia;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idUsuario", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $idusuario;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Rolusuario
+     *
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Rolusuario")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="RolUsuario_idRolUsuario", referencedColumnName="idRolUsuario")
+     * })
+     */
+    private $rolusuariorolusuario;
+
+
+}
+

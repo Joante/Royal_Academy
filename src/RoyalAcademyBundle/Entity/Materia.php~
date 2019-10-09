@@ -1,0 +1,77 @@
+<?php
+
+namespace RoyalAcademyBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Materia
+ *
+ * @ORM\Table(name="materia")
+ * @ORM\Entity
+ */
+class Materia
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nombre", type="string", length=45, nullable=false)
+     */
+    private $nombre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CantMax", type="integer", nullable=false)
+     */
+    private $cantmax;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="CantActual", type="integer", nullable=false)
+     */
+    private $cantactual = '0';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="idMateria", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idmateria;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Alumno", mappedBy="materiamateria")
+     */
+    private $alumnoalumno;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Carrera", inversedBy="materiamateria")
+     * @ORM\JoinTable(name="materia_has_carrera",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="Materia_idMateria", referencedColumnName="idMateria")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="Carrera_idCarrera", referencedColumnName="idCarrera")
+     *   }
+     * )
+     */
+    private $carreracarrera;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->alumnoalumno = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carreracarrera = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+}
+

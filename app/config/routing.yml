@@ -1,3 +1,6 @@
-app:
-    resource: '@AppBundle/Controller/'
-    type: annotation
+royal_academy:
+    resource: "@RoyalAcademyBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+
