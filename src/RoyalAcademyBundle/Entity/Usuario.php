@@ -31,7 +31,7 @@ class Usuario
      *
      * @ORM\Column(name="idUsuario", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idusuario;
 
@@ -96,20 +96,6 @@ class Usuario
     }
 
     /**
-     * Set idusuario
-     *
-     * @param integer $idusuario
-     *
-     * @return Usuario
-     */
-    public function setIdusuario($idusuario)
-    {
-        $this->idusuario = $idusuario;
-
-        return $this;
-    }
-
-    /**
      * Get idusuario
      *
      * @return integer
@@ -126,7 +112,7 @@ class Usuario
      *
      * @return Usuario
      */
-    public function setRolusuariorolusuario(\RoyalAcademyBundle\Entity\Rolusuario $rolusuariorolusuario)
+    public function setRolusuariorolusuario(\RoyalAcademyBundle\Entity\Rolusuario $rolusuariorolusuario = null)
     {
         $this->rolusuariorolusuario = $rolusuariorolusuario;
 

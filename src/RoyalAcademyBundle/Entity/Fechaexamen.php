@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Fechaexamen
  *
- * @ORM\Table(name="fechaexamen", indexes={@ORM\Index(name="fk_FechaExamen_Sede1_idx", columns={"Sede_idSede"}), @ORM\Index(name="fk_FechaExamen_Materia1_idx", columns={"Materia_idMateria"})})
+ * @ORM\Table(name="fechaexamen", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_4F874DD2B8365375", columns={"Materia_idMateria"}), @ORM\UniqueConstraint(name="UNIQ_4F874DD219A83F38", columns={"Sede_idSede"})}, indexes={@ORM\Index(name="fk_FechaExamen_Sede1_idx", columns={"Sede_idSede"}), @ORM\Index(name="fk_FechaExamen_Materia1_idx", columns={"Materia_idMateria"})})
  * @ORM\Entity
  */
 class Fechaexamen
@@ -24,7 +24,7 @@ class Fechaexamen
      *
      * @ORM\Column(name="CantActual", type="integer", nullable=false)
      */
-    private $cantactual = '0';
+    private $cantactual;
 
     /**
      * @var \DateTime
@@ -38,29 +38,29 @@ class Fechaexamen
      *
      * @ORM\Column(name="idFechaExamen", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idfechaexamen;
 
     /**
-     * @var \RoyalAcademyBundle\Entity\Materia
-     *
-     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Materia")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Materia_idMateria", referencedColumnName="idMateria")
-     * })
-     */
-    private $materiamateria;
-
-    /**
      * @var \RoyalAcademyBundle\Entity\Sede
      *
-     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Sede")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Sede")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Sede_idSede", referencedColumnName="idSede")
      * })
      */
     private $sedesede;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Materia
+     *
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Materia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Materia_idMateria", referencedColumnName="idMateria")
+     * })
+     */
+    private $materiamateria;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -151,20 +151,6 @@ class Fechaexamen
     }
 
     /**
-     * Set idfechaexamen
-     *
-     * @param integer $idfechaexamen
-     *
-     * @return Fechaexamen
-     */
-    public function setIdfechaexamen($idfechaexamen)
-    {
-        $this->idfechaexamen = $idfechaexamen;
-
-        return $this;
-    }
-
-    /**
      * Get idfechaexamen
      *
      * @return integer
@@ -175,37 +161,13 @@ class Fechaexamen
     }
 
     /**
-     * Set materiamateria
-     *
-     * @param \RoyalAcademyBundle\Entity\Materia $materiamateria
-     *
-     * @return Fechaexamen
-     */
-    public function setMateriamateria(\RoyalAcademyBundle\Entity\Materia $materiamateria)
-    {
-        $this->materiamateria = $materiamateria;
-
-        return $this;
-    }
-
-    /**
-     * Get materiamateria
-     *
-     * @return \RoyalAcademyBundle\Entity\Materia
-     */
-    public function getMateriamateria()
-    {
-        return $this->materiamateria;
-    }
-
-    /**
      * Set sedesede
      *
      * @param \RoyalAcademyBundle\Entity\Sede $sedesede
      *
      * @return Fechaexamen
      */
-    public function setSedesede(\RoyalAcademyBundle\Entity\Sede $sedesede)
+    public function setSedesede(\RoyalAcademyBundle\Entity\Sede $sedesede = null)
     {
         $this->sedesede = $sedesede;
 
@@ -220,6 +182,30 @@ class Fechaexamen
     public function getSedesede()
     {
         return $this->sedesede;
+    }
+
+    /**
+     * Set materiamateria
+     *
+     * @param \RoyalAcademyBundle\Entity\Materia $materiamateria
+     *
+     * @return Fechaexamen
+     */
+    public function setMateriamateria(\RoyalAcademyBundle\Entity\Materia $materiamateria = null)
+    {
+        $this->materiamateria = $materiamateria;
+
+        return $this;
+    }
+
+    /**
+     * Get materiamateria
+     *
+     * @return \RoyalAcademyBundle\Entity\Materia
+     */
+    public function getMateriamateria()
+    {
+        return $this->materiamateria;
     }
 
     /**

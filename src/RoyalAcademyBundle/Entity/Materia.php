@@ -31,7 +31,7 @@ class Materia
      *
      * @ORM\Column(name="CantActual", type="integer", nullable=false)
      */
-    private $cantactual = '0';
+    private $cantactual;
 
     /**
      * @var integer

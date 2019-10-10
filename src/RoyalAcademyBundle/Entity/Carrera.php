@@ -24,7 +24,7 @@ class Carrera
      *
      * @ORM\Column(name="idCarrera", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idcarrera;
 
@@ -79,20 +79,6 @@ class Carrera
     }
 
     /**
-     * Set idcarrera
-     *
-     * @param integer $idcarrera
-     *
-     * @return Carrera
-     */
-    public function setIdcarrera($idcarrera)
-    {
-        $this->idcarrera = $idcarrera;
-
-        return $this;
-    }
-
-    /**
      * Get idcarrera
      *
      * @return integer
@@ -109,7 +95,7 @@ class Carrera
      *
      * @return Carrera
      */
-    public function setSedesede(\RoyalAcademyBundle\Entity\Sede $sedesede)
+    public function setSedesede(\RoyalAcademyBundle\Entity\Sede $sedesede = null)
     {
         $this->sedesede = $sedesede;
 

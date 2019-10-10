@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Alumno
  *
- * @ORM\Table(name="alumno", indexes={@ORM\Index(name="fk_Alumno_Sede1_idx", columns={"Sede_idSede"}), @ORM\Index(name="fk_Alumno_Usuario1_idx", columns={"Usuario_idUsuario"})})
+ * @ORM\Table(name="alumno", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_1435D52D95440347", columns={"Usuario_idUsuario"})}, indexes={@ORM\Index(name="fk_Alumno_Sede1_idx", columns={"Sede_idSede"}), @ORM\Index(name="fk_Alumno_Usuario1_idx", columns={"Usuario_idUsuario"})})
  * @ORM\Entity
  */
 class Alumno
@@ -52,14 +52,13 @@ class Alumno
      *
      * @ORM\Column(name="idAlumno", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idalumno;
 
     /**
      * @var \RoyalAcademyBundle\Entity\Sede
      *
-     * 
      * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Sede")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Sede_idSede", referencedColumnName="idSede")
@@ -70,7 +69,7 @@ class Alumno
     /**
      * @var \RoyalAcademyBundle\Entity\Usuario
      *
-     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Usuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      * })
@@ -238,20 +237,6 @@ class Alumno
     }
 
     /**
-     * Set idalumno
-     *
-     * @param integer $idalumno
-     *
-     * @return Alumno
-     */
-    public function setIdalumno($idalumno)
-    {
-        $this->idalumno = $idalumno;
-
-        return $this;
-    }
-
-    /**
      * Get idalumno
      *
      * @return integer
@@ -268,7 +253,7 @@ class Alumno
      *
      * @return Alumno
      */
-    public function setSedesede(\RoyalAcademyBundle\Entity\Sede $sedesede)
+    public function setSedesede(\RoyalAcademyBundle\Entity\Sede $sedesede = null)
     {
         $this->sedesede = $sedesede;
 
@@ -292,7 +277,7 @@ class Alumno
      *
      * @return Alumno
      */
-    public function setUsuariousuario(\RoyalAcademyBundle\Entity\Usuario $usuariousuario)
+    public function setUsuariousuario(\RoyalAcademyBundle\Entity\Usuario $usuariousuario = null)
     {
         $this->usuariousuario = $usuariousuario;
 

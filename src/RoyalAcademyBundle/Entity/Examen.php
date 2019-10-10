@@ -17,7 +17,7 @@ class Examen
      *
      * @ORM\Column(name="idExamen", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idexamen;
 
@@ -32,20 +32,6 @@ class Examen
     private $fechaexamenfechaexamen;
 
 
-
-    /**
-     * Set idexamen
-     *
-     * @param integer $idexamen
-     *
-     * @return Examen
-     */
-    public function setIdexamen($idexamen)
-    {
-        $this->idexamen = $idexamen;
-
-        return $this;
-    }
 
     /**
      * Get idexamen
@@ -64,7 +50,7 @@ class Examen
      *
      * @return Examen
      */
-    public function setFechaexamenfechaexamen(\RoyalAcademyBundle\Entity\Fechaexamen $fechaexamenfechaexamen)
+    public function setFechaexamenfechaexamen(\RoyalAcademyBundle\Entity\Fechaexamen $fechaexamenfechaexamen = null)
     {
         $this->fechaexamenfechaexamen = $fechaexamenfechaexamen;
 

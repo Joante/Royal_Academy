@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RoyalAcademyBundle\Entity\Sede" table="sede">
+    <indexes>
+      <index name="fk_Sede_Pais_idx" columns="Pais_idPais"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="UNIQ_2A9BE2D196FCEA96" columns="Pais_idPais"/>
+    </unique-constraints>
+    <id name="idsede" type="integer" column="idSede">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="Nombre" length="45" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="paispais" target-entity="Pais" fetch="LAZY">
+      <join-columns>
+        <join-column name="Pais_idPais" referenced-column-name="idPais"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

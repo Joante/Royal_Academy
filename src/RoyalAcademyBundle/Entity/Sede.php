@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Sede
  *
- * @ORM\Table(name="sede", indexes={@ORM\Index(name="fk_Sede_Pais_idx", columns={"Pais_idPais"})})
+ * @ORM\Table(name="sede", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_2A9BE2D196FCEA96", columns={"Pais_idPais"})}, indexes={@ORM\Index(name="fk_Sede_Pais_idx", columns={"Pais_idPais"})})
  * @ORM\Entity
  */
 class Sede
@@ -24,14 +24,14 @@ class Sede
      *
      * @ORM\Column(name="idSede", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idsede;
 
     /**
      * @var \RoyalAcademyBundle\Entity\Pais
      *
-     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Pais")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Pais")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Pais_idPais", referencedColumnName="idPais")
      * })
@@ -65,20 +65,6 @@ class Sede
     }
 
     /**
-     * Set idsede
-     *
-     * @param integer $idsede
-     *
-     * @return Sede
-     */
-    public function setIdsede($idsede)
-    {
-        $this->idsede = $idsede;
-
-        return $this;
-    }
-
-    /**
      * Get idsede
      *
      * @return integer
@@ -95,7 +81,7 @@ class Sede
      *
      * @return Sede
      */
-    public function setPaispais(\RoyalAcademyBundle\Entity\Pais $paispais)
+    public function setPaispais(\RoyalAcademyBundle\Entity\Pais $paispais = null)
     {
         $this->paispais = $paispais;
 

@@ -59,7 +59,7 @@ class Examenrealizado
      *
      * @ORM\Column(name="idExamenRealizado", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="NONE")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idexamenrealizado;
 
@@ -234,20 +234,6 @@ class Examenrealizado
     }
 
     /**
-     * Set idexamenrealizado
-     *
-     * @param integer $idexamenrealizado
-     *
-     * @return Examenrealizado
-     */
-    public function setIdexamenrealizado($idexamenrealizado)
-    {
-        $this->idexamenrealizado = $idexamenrealizado;
-
-        return $this;
-    }
-
-    /**
      * Get idexamenrealizado
      *
      * @return integer
@@ -264,7 +250,7 @@ class Examenrealizado
      *
      * @return Examenrealizado
      */
-    public function setAlumnoalumno(\RoyalAcademyBundle\Entity\Alumno $alumnoalumno)
+    public function setAlumnoalumno(\RoyalAcademyBundle\Entity\Alumno $alumnoalumno = null)
     {
         $this->alumnoalumno = $alumnoalumno;
 

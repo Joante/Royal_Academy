@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Administrador
  *
- * @ORM\Table(name="administrador", indexes={@ORM\Index(name="fk_Administrador_Usuario1_idx", columns={"Usuario_idUsuario"})})
+ * @ORM\Table(name="administrador", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_44F9A52195440347", columns={"Usuario_idUsuario"})}, indexes={@ORM\Index(name="fk_Administrador_Usuario1_idx", columns={"Usuario_idUsuario"})})
  * @ORM\Entity
  */
 class Administrador
@@ -31,15 +31,14 @@ class Administrador
      *
      * @ORM\Column(name="idAdministrador", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $idadministrador;
 
     /**
      * @var \RoyalAcademyBundle\Entity\Usuario
      *
-     *
-     * @ORM\OneToOne(targetEntity="RoyalAcademyBundle\Entity\Usuario")
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Usuario")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
      * })
@@ -97,20 +96,6 @@ class Administrador
     }
 
     /**
-     * Set idadministrador
-     *
-     * @param integer $idadministrador
-     *
-     * @return Administrador
-     */
-    public function setIdadministrador($idadministrador)
-    {
-        $this->idadministrador = $idadministrador;
-
-        return $this;
-    }
-
-    /**
      * Get idadministrador
      *
      * @return integer
@@ -127,7 +112,7 @@ class Administrador
      *
      * @return Administrador
      */
-    public function setUsuariousuario(\RoyalAcademyBundle\Entity\Usuario $usuariousuario)
+    public function setUsuariousuario(\RoyalAcademyBundle\Entity\Usuario $usuariousuario = null)
     {
         $this->usuariousuario = $usuariousuario;
 

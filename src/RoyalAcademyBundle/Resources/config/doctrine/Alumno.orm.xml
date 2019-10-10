@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RoyalAcademyBundle\Entity\Alumno" table="alumno">
+    <indexes>
+      <index name="fk_Alumno_Sede1_idx" columns="Sede_idSede"/>
+      <index name="fk_Alumno_Usuario1_idx" columns="Usuario_idUsuario"/>
+    </indexes>
+    <unique-constraints>
+      <unique-constraint name="UNIQ_1435D52D95440347" columns="Usuario_idUsuario"/>
+    </unique-constraints>
+    <id name="idalumno" type="integer" column="idAlumno">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nombre" type="string" column="Nombre" length="55" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="dni" type="bigint" column="DNI" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="edad" type="integer" column="Edad" nullable="false">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="sexo" type="string" column="Sexo" length="1" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <field name="email" type="string" column="Email" length="40" nullable="false">
+      <options>
+        <option name="fixed"/>
+      </options>
+    </field>
+    <many-to-one field="sedesede" target-entity="Sede" fetch="LAZY">
+      <join-columns>
+        <join-column name="Sede_idSede" referenced-column-name="idSede"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="usuariousuario" target-entity="Usuario" fetch="LAZY">
+      <join-columns>
+        <join-column name="Usuario_idUsuario" referenced-column-name="idUsuario"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="fechaexamenfechaexamen" target-entity="Fechaexamen" inversed-by="alumnoalumno" fetch="LAZY">
+      <join-table name="alumno_has_fechaexamen">
+        <join-columns>
+          <join-column name="Alumno_idAlumno" referenced-column-name="idAlumno"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="FechaExamen_idFechaExamen" referenced-column-name="idFechaExamen"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="materiamateria" target-entity="Materia" inversed-by="alumnoalumno" fetch="LAZY">
+      <join-table name="alumno_has_materia">
+        <join-columns>
+          <join-column name="Alumno_idAlumno" referenced-column-name="idAlumno"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="Materia_idMateria" referenced-column-name="idMateria"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

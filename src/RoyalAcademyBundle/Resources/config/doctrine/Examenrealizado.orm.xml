@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="RoyalAcademyBundle\Entity\Examenrealizado" table="examenrealizado">
+    <indexes>
+      <index name="fk_ExamenRealizado_Alumno1_idx" columns="Alumno_idAlumno"/>
+    </indexes>
+    <id name="idexamenrealizado" type="integer" column="idExamenRealizado">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="estacompletado" type="boolean" column="estaCompletado" nullable="true"/>
+    <field name="nota" type="integer" column="nota" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="informado" type="boolean" column="informado" nullable="true"/>
+    <field name="turno" type="integer" column="turno" nullable="true">
+      <options>
+        <option name="unsigned"/>
+      </options>
+    </field>
+    <field name="fecha" type="date" column="fecha" nullable="true"/>
+    <field name="fechainicio" type="datetime" column="fechaInicio" nullable="true"/>
+    <many-to-one field="alumnoalumno" target-entity="Alumno" fetch="LAZY">
+      <join-columns>
+        <join-column name="Alumno_idAlumno" referenced-column-name="idAlumno"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="respuestarespuesta" target-entity="Respuesta" mapped-by="examenrealizadoexamenrealizado" fetch="LAZY"/>
+  </entity>
+</doctrine-mapping>
