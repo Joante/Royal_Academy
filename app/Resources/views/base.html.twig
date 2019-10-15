@@ -2,12 +2,120 @@
 <html>
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+        <link href="{{ asset('css/top_bar.css') }}" type="text/css" rel="stylesheet" />
+        <link href="{{ asset('css/footer.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
+        <header>
+            <div class="top-bar-titulo">
+               <img id="logo" src="{{ asset('images/logo.png') }}" alt="Symfony!" />
+                <h2 id="capacitar">Capacit<span id="ar">AR</span></h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="#">Alumnos</a>
+                        <ul align=center>
+                            <li><a href="#">Alta</a></li>
+                            <li><a href="#">Baja</a></li>
+                            <li><a href="#">Modificacion</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu2"><a href="#">Pais</a></li>
+                    <li class="menu3"><a href="#">Sede</a></li>
+                </ul>
+            </nav>
+         </header>
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+
+        <footer>
+            <div class="container-footer-all">
+                    <div class="container-body">
+
+                        <div class="colum1">
+                            <h1>Mas informacion de la compañia</h1>
+
+                            <p>Esta compañia se dedica a la venta de software integrado con un 
+                            conjunto de cosas que no se lo que estoy escribiendo, este 
+                            texto es solo para llenara informacion en el cuadro de informacion 
+                            de la compañia.</p>
+
+                        </div>
+
+                        <div class="colum2">
+
+                            <h1>Redes Sociales</h1>
+
+                            <div class="row">
+                                <img src="{{ asset('images/facebook.png') }}" alt="Symfony!" />
+                                <label>Siguenos en Facebook</label>
+                            </div>
+                            <div class="row">
+                                <img src="{{ asset('images/twitter.png') }}" alt="Symfony!" />
+                                <label>Siguenos en Twitter</label>
+                            </div>
+                            <div class="row">
+                                <img src="{{ asset('images/instagram.png') }}" alt="Symfony!" />
+                                <label>Siguenos en Instagram</label>
+                            </div>
+                            <div class="row">
+                               <img src="{{ asset('images/google-plus.png') }}" alt="Symfony!" />
+                                <label>Siguenos en Google Plus</label>
+                            </div>
+                            <div class="row">
+                                <img src="{{ asset('images/pinterest.png') }}" alt="Symfony!" />
+                                <label>Siguenos en Pinterest</label>
+                            </div>
+
+                        </div>
+
+                        <div class="colum3">
+
+                            <h1>Informacion Contactos</h1>
+
+                            <div class="row2">
+                                 <img src="{{ asset('images/house.png') }}" alt="Symfony!" />
+                                <label>Buenos Aires, 
+                                Argentina
+                                Belgrano 127
+                                Casa Central</label>
+                            </div>
+
+                            <div class="row2">
+                                 <img src="{{ asset('images/smartphone.png') }}" alt="Symfony!" />
+                                <label>+149-11-3955-2000</label>
+                            </div>
+
+                            <div class="row2">
+                                <img src="{{ asset('images/contact.png') }}" alt="Symfony!" />
+                                <label>CapacitarContact@gmail.com</label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                
+             </div>
+                
+            <div class="container-footer">
+                <div class="footer">
+                     <div class="copyright">
+                             © 2019 Todos los Derechos Reservados
+                        </div>
+
+                        <div class="information">
+                             <a href="">Informacion Compañia</a> | <a href="">Privacion y Politica</a> | <a href="">Terminos y Condiciones</a>
+                         </div>
+                </div>
+
+            </div>
+    </footer>
     </body>
 </html>

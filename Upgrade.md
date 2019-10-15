@@ -1,4 +1,4 @@
-UPGRADE:
+﻿UPGRADE:
 
 v0.1:
 	- Hacer un git pull.
@@ -7,3 +7,5 @@ v0.1:
 	- Correr el siguiente comando en la carpeta raiz: php composer.phar dump-autoload
 	- Correr el siguiente comando en la carpeta raiz: php bin/console cache:clear
 	Fin.
+
+C:\wamp64\www\Royal_Academy>php bin/console server:run
