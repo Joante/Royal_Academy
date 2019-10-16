@@ -1,5 +1,5 @@
 
-.container {
+.container-grilla {
   margin:0 auto;
   display: -ms-grid;
   display: grid;
@@ -94,3 +94,19 @@
   margin: 0;
 }
 
+.log-in-form {
+  border: 1px solid #cacaca;
+  padding: 1rem;
+  border-radius: 0;
+  margin: 0 auto;
+  margin-top: 50;
+}
+
+.log-in{
+  width: 30%;
+  float: right;
+}
+
+.container-slider{
+  text-align:center;
+}
