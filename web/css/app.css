@@ -110,3 +110,40 @@
 .container-slider{
   text-align:center;
 }
+
+
+.type-sidelines {
+  display: block;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.type-sidelines span {
+  display: inline-block;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+.type-sidelines span:before, .type-sidelines span:after {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 9999px;
+  top: 50%;
+  border-top-style: solid;
+}
+
+.type-sidelines span:before {
+  right: 100%;
+}
+
+.type-sidelines span:after {
+  left: 100%;
+}
+
+hr.style13 {
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
+}
