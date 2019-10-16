@@ -1,0 +1,168 @@
+@font-face{
+	font-family:fuente_1;
+	font-style:normal;
+	font-weight:normal;
+	src: url(fonts/Bodoni.ttf);
+}
+
+@font-face{
+	font-family:fuente_2;
+	font-style:normal;
+	font-weight:normal;
+  src: url(fonts/futura.ttf);
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+header{
+  font-family:fuente_2;
+  font-size: 20px;
+  background-color: #333;
+  color: white;
+  height: 71px;
+  width: 100%;
+  
+}
+
+.top-bar-titulo{
+  /*height: 70px;
+  width: 230px;*/
+  padding-bottom: 5px;
+  margin: 0px;
+}
+
+#logo{
+  float: left;
+  vertical-align: baseline;  
+  height: 60px;
+  width: 60px;
+  padding: 5px;
+  margin: 0px;
+}
+
+#capacitar{
+  width: 230px;
+  height: 61px;
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  padding-left: 75px;
+  /*height: 36px;
+  width: 150px;*/
+  padding-right: 5px;
+  margin-right: 0px;
+}
+
+#ar{
+  color: rgb(142, 181, 253);
+}
+
+a{
+  text-align: center;
+}
+
+.menu{
+  display: flex;
+  margin-top: -70px;
+  margin-left: 250px;
+  height: 70px;
+  width: 100%;
+  font-size: 18px;
+  /*background-color: #333;*/
+
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.menu ul{
+  display: flex;
+  float: left;
+  /*margin: auto;*/
+}
+
+.menu li{
+  list-style: none;
+  padding: 15px 20px;
+  color: white;
+  font-family:fuente_2;
+}
+
+/*el submenu*/
+.menu ul li ul{
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 5px;
+  margin-left: -20px;
+}
+
+.menu ul li:hover > ul{
+  display: flex;
+}
+
+
+.menu li:hover{
+  background-color: #111;
+  cursor: pointer;
+  transition: all 300ms;
+}
+
+
+
+
+/*
+.sub-menu1,.sub-menu2,.sub-menu3{
+  display: none;
+  position: absolute;
+}
+.sub-menu1 li{
+  display: block;
+}
+
+.menu1:hover .sub-menu1 {
+  transition: all 300ms;
+  display:flex;
+}*/
+/* si el menu dos tuviera sub menu, aun no y falta el 3
+.menu1:hover .sub-menu1 {
+  display:block;
+}
+*/
+
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  text-align: center;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/*
+li a:hover {
+  background-color: #111;
+}*/
