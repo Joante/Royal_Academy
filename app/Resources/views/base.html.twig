@@ -6,12 +6,16 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
-        <link href="{{ asset('css/top_bar.css') }}" type="text/css" rel="stylesheet" />
-        <link href="{{ asset('css/footer.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/top_bar.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/footer.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('css/foundation.min.css') }}" type="text/css" rel="stylesheet">
+            <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
+   
     <body>
+        {% block header %}
         <header>
             <div class="top-bar-titulo">
                <img id="logo" src="{{ asset('images/logo.png') }}" alt="Symfony!" />
@@ -49,10 +53,9 @@
                 </ul>
             </nav>
          </header>
-
+        {% endblock %}
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-
+        {% block footer %}
         <footer>
             <div class="container-footer-all">
                     <div class="container-body">
@@ -135,5 +138,7 @@
 
             </div>
     </footer>
+    {% endblock %}
     </body>
+    {% block javascripts %}{% endblock %}
 </html>
