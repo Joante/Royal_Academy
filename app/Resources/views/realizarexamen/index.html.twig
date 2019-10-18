@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Realizarexamens list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for realizarExaman in realizarExamens %}
+            <tr>
+                <td><a href="{{ path('realizarexamen_show', { 'id': realizarExaman.id }) }}">{{ realizarExaman.id }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('realizarexamen_show', { 'id': realizarExaman.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('realizarexamen_edit', { 'id': realizarExaman.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('realizarexamen_new') }}">Create a new realizarExaman</a>
+        </li>
+    </ul>
+{% endblock %}

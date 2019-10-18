@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Sedes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Idsede</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for sede in sedes %}
+            <tr>
+                <td><a href="{{ path('sede_show', { 'idsede': sede.idsede }) }}">{{ sede.nombre }}</a></td>
+                <td>{{ sede.idsede }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('sede_show', { 'idsede': sede.idsede }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('sede_edit', { 'idsede': sede.idsede }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('sede_new') }}">Create a new sede</a>
+        </li>
+    </ul>
+{% endblock %}
