@@ -39,7 +39,7 @@ class PreguntaController extends Controller
      */
     public function newAction(Request $request)
     {
-        $preguntum = new Preguntum();
+        $preguntum = new Pregunta();
         $form = $this->createForm('RoyalAcademyBundle\Form\PreguntaType', $preguntum);
         $form->handleRequest($request);
 
