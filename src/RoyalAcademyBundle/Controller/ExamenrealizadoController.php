@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
@@ -225,8 +226,8 @@ class ExamenrealizadoController extends Controller
                     'class' => "form-control"
                 ),
                 'choices' => array(
-                    $rtaDeExamen[0]->getDescripcion() => $rtaDeExamen[0]->getDescripcion(),
-                    $rtaDeExamen[1]->getDescripcion() => $rtaDeExamen[1]->getDescripcion(),  
+                    $rtaDeExamen[0]->getDescripcion() => $rtaDeExamen[0]->getIdrespuesta(), //TENGO LA DESCR Y EL ID COMO DATO
+                    $rtaDeExamen[1]->getDescripcion() => $rtaDeExamen[1]->getIdrespuesta(),
                 ),
 
             ));
@@ -238,37 +239,38 @@ class ExamenrealizadoController extends Controller
             //GUARDO RESPUESTAS       
             $repositoryExamenRealizado = $this->getDoctrine()
             ->getRepository(Examenrealizado::class);
-            $examenrealizado = $this->getDoctrine()->getRepository(Examenrealizado::class)->find($idexamenrealizado);
-            
+            $examenrealizado = $this->getDoctrine()->getRepository(Examenrealizado::class)->find($idexamenrealizado);            
 
             $query = $repository->createQueryBuilder('pregunta')
             ->where('pregunta.examenexamen = :id')
             ->setParameter('id', $idexamenrealizado) 
             ->orderBy('pregunta.idpregunta', 'ASC')
             ->getQuery();
-            $preguntasDeExamen = $query->getResult();
+            $preguntasDeExamen = $query->getResult();                 
 
-            $defaultData = array('message' => 'Type your message here');
-            $form = $this->createFormBuilder($defaultData)
-               ->getForm();
-        
-                if ($request->isMethod('POST')) {
-                    //$form->bind($request);
-
-                    // data es un arreglo con claves 'name', 'email', y 'message'
-                    $data = $form->getData();
-                    print_r($data);
+            if ($request->isMethod('POST')) {
+                //$form->bind($request);
+                // data es un arreglo con claves 'name', 'email', y 'message'
+                $respuestaElegidas = new ArrayCollection();
+                
+                foreach ($preguntasDeExamen as $pregunta){
+                $respuestaElegidas->add($form->get($pregunta->getIdpregunta())->getData());
+                print_r($respuestaElegidas);
                 }
 
-
-                //TENGO QTRAER DELFORMULARIO LOS IDS DE RESPUESTAS SELECCIONADAS
-        //            $examenrealizado->addRespuestarespuestum                
-               
-
-   //        $entityManager->persist($product);
-      //      $entityManager->flush();
-    
-            
+                $data = $form->getData();
+            }
+            //AGREGO LAS RTA AL EXAMEN 
+            foreach ($rtaDeExamen as $res){
+                $examenrealizado->addRespuestarespuestum($res);
+                print_r($res->getDescripcion());
+            }
+            // PERSISTO            
+            $entityManager = $this->getDoctrine()->getManager();
+            //$examenrealizado->setEstacompletado(1); SI COMPLETO
+            $entityManager->persist($examenrealizado);
+            $entityManager->flush();
+                
             //ACTUALIZO ULTIMA PREGUNTA, no hace falta si hago un join entre tabla muchos a muchos y tabla respuestas
 
             //RECARGO PAGINA --> CARGARA PROXIMAS RESPUESTAS
