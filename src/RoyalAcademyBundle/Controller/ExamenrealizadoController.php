@@ -261,8 +261,9 @@ class ExamenrealizadoController extends Controller
                 $data = $form->getData();
             }
             //AGREGO LAS RTA AL EXAMEN 
-            foreach ($rtaDeExamen as $res){
-                $examenrealizado->addRespuestarespuestum($res);
+        
+            foreach ($rtaDeExamen as $res){                
+                $examenrealizado->addRespuestarespuestum($res); //AGREGO A EXAMEN LAS RTAS
                 print_r($res->getDescripcion());
             }
             // PERSISTO            
