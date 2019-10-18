@@ -76,8 +76,10 @@ class Examenrealizado
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="examenrealizadoexamenrealizado")
+     * @ORM\ManyToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="examenrealizadoexamenrealizado", cascade="persist")
+     * @ORM\JoinTable(name="examenrealizado_has_respuesta")
      */
+
     private $respuestarespuesta;
 
     /**

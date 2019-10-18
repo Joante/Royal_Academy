@@ -128,4 +128,8 @@ class Administrador
     {
         return $this->usuariousuario;
     }
+
+    public function __toString() {
+        return $this->getUsuariousuario();
+      }
 }

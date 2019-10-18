@@ -361,4 +361,9 @@ class Alumno
     {
         return $this->materiamateria;
     }
+
+    public function __toString()
+    {
+        return (string) $this->nombre;
+    }
 }

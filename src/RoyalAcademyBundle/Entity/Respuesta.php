@@ -184,4 +184,10 @@ class Respuesta
     {
         return $this->examenrealizadoexamenrealizado;
     }
+    
+
+    public function __toString()
+    {
+        return (string) $this->descripcion;
+    }
 }
