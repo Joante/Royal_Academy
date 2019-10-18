@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
 {% endblock %}
-
+{% block header %}
+  <header>
+            <div class="top-bar-titulo">
+               <img id="logo" src="{{ asset('images/logo.png') }}" alt="Symfony!" />
+                <h2 id="capacitar">Capacit<span id="ar">AR</span></h2>
+            </div>
+  </header>
+{% endblock %}
 {% block body %}
-    {#<div class="container-slider">#}
       <br>
       <br>
       <div class="container">
