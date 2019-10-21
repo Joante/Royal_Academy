@@ -1,0 +1,12 @@
+{% block title %}{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('css/login.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/foundation.min.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+{% block content %}
+
+  {% block fos_user_content %}
+  {% endblock fos_user_content %}
+{% endblock %}
+

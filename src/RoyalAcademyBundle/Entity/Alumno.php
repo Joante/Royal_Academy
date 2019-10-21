@@ -71,7 +71,7 @@ class Alumno
      *
      * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Usuario")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="idUsuario")
+     *   @ORM\JoinColumn(name="Usuario_idUsuario", referencedColumnName="id")
      * })
      */
     private $usuariousuario;
