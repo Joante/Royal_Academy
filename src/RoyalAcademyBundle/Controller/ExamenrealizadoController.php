@@ -5,13 +5,16 @@ use RoyalAcademyBundle\Entity\Alumno;
 use RoyalAcademyBundle\Entity\Pregunta;
 use RoyalAcademyBundle\Entity\Examenrealizado;
 use RoyalAcademyBundle\Entity\Respuesta;
+use Doctrine\ORM\EntityRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\Common\Collections\ArrayCollection;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 /**
  * Examenrealizado controller.
@@ -171,6 +174,10 @@ class ExamenrealizadoController extends Controller
      */
     public function realizandoAction(Request $request, int $idexamenrealizado, int $idalumno)
     {
+        $ultimaPreguntaContestada = $this->consultarUltimaPreguntaDeExamen($idexamenrealizado);
+        //print_r($ultimaPreguntaContestada);
+        //-------------------------- EN ESTE PUNTOTENGO EL ID de la ultima pregunta contestada
+        //-------------------------- CARGO 5 preguntas a partir de ese ID
         $examenrealizado = new Examenrealizado();
         $form = $this->createForm('RoyalAcademyBundle\Form\ExamenrealizadoType', $examenrealizado);  
         
@@ -188,23 +195,28 @@ class ExamenrealizadoController extends Controller
 
         $repositoryRta = $this->getDoctrine()
         ->getRepository(Respuesta::class);
-
-   // createQueryBuilder() automatically selects FROM AppBundle:Product
-   // and aliases it to "p"
+        
+        //print_r("no llego a ejecutar");
+        
         $query = $repository->createQueryBuilder('pregunta')
-        ->where('pregunta.examenexamen = :id')
+        ->where('pregunta.examenexamen = :id and pregunta.idpregunta > :idUltimaPregunta')
         ->setParameter('id', $idexamenrealizado) 
+        ->setParameter('idUltimaPregunta', $ultimaPreguntaContestada) 
         ->orderBy('pregunta.idpregunta', 'ASC')
+        ->setMaxResults(3) //MAX_PREGUNTAS_POR_PAGINA =3
         ->getQuery();
         $preguntasDeExamen = $query->getResult();
+        //print_r(" llego a ejecutar");
 
-        if(!$query){
-            die("Query Failed" );
+        if(!$preguntasDeExamen or !$query){
+            //SI NO TRAE MAS PREGUNTAS TERMINO EXAMEN
+            die("fin de examen, todas las preguntas han sido contestadas");
         }
     
         // Agregar dinámicamente las respuestas a cada pregunta
         foreach ($preguntasDeExamen as $pregunta){
             // Traigo respuestas
+           // print_r("Traigo respuestas");
             $queryRta = $repositoryRta->createQueryBuilder('respuesta')
             ->where('respuesta.preguntapregunta = :id')
             ->setParameter('id', $pregunta->getIdpregunta()) 
@@ -216,7 +228,7 @@ class ExamenrealizadoController extends Controller
             if(!$queryRta){
                 die("Query Failed" );
             }
-
+/*
             $form->add($pregunta->getIdpregunta(), ChoiceType::class, array(
                 "label" => $pregunta->getDescripcion(),
                 "mapped" => false,
@@ -231,55 +243,63 @@ class ExamenrealizadoController extends Controller
                 ),
 
             ));
+  */          
+            $form->add($pregunta->getIdpregunta(), EntityType::class, [
+                "mapped" => false,
+                "label" => $pregunta->getDescripcion(),
+                'class' => Respuesta::class,
+                'choices' => $rtaDeExamen,
+            ]);
         }
 
         $form->handleRequest($request);
-    
-        if ($form->isSubmitted()) {
-            //GUARDO RESPUESTAS       
-            $repositoryExamenRealizado = $this->getDoctrine()
-            ->getRepository(Examenrealizado::class);
-            $examenrealizado = $this->getDoctrine()->getRepository(Examenrealizado::class)->find($idexamenrealizado);            
-
-            $query = $repository->createQueryBuilder('pregunta')
-            ->where('pregunta.examenexamen = :id')
-            ->setParameter('id', $idexamenrealizado) 
-            ->orderBy('pregunta.idpregunta', 'ASC')
-            ->getQuery();
-            $preguntasDeExamen = $query->getResult();                 
-
+        
+        if ($form->isSubmitted() and $form->isValid()) {
+            //GUARDO RESPUESTAS 
+            //print_r("SUBMIT PAGINA");      
             if ($request->isMethod('POST')) {
-                //$form->bind($request);
-                // data es un arreglo con claves 'name', 'email', y 'message'
+                $repositoryExamenRealizado = $this->getDoctrine()
+                ->getRepository(Examenrealizado::class);
+                $examenrealizado = $this->getDoctrine()->getRepository(Examenrealizado::class)->find($idexamenrealizado);            
+                
+                /*$query = $repository->createQueryBuilder('pregunta')
+                ->where('pregunta.examenexamen = :id')
+                ->setParameter('id', $idexamenrealizado) 
+                ->orderBy('pregunta.idpregunta', 'ASC')
+                ->getQuery();
+                $preguntasDeExamen = $query->getResult();                 
+                */
+                
                 $respuestaElegidas = new ArrayCollection();
                 
                 foreach ($preguntasDeExamen as $pregunta){
-                $respuestaElegidas->add($form->get($pregunta->getIdpregunta())->getData());
-                print_r($respuestaElegidas);
+                    $respuestaElegidas->add($form->get($pregunta->getIdpregunta())->getData());                                    
                 }
-
-                $data = $form->getData();
-            }
-            //AGREGO LAS RTA AL EXAMEN 
-        
-            foreach ($rtaDeExamen as $res){                
-                $examenrealizado->addRespuestarespuestum($res); //AGREGO A EXAMEN LAS RTAS
-                print_r($res->getDescripcion());
-            }
-            // PERSISTO            
-            $entityManager = $this->getDoctrine()->getManager();
-            //$examenrealizado->setEstacompletado(1); SI COMPLETO
-            $entityManager->persist($examenrealizado);
-            $entityManager->flush();
                 
-            //ACTUALIZO ULTIMA PREGUNTA, no hace falta si hago un join entre tabla muchos a muchos y tabla respuestas
-
-            //RECARGO PAGINA --> CARGARA PROXIMAS RESPUESTAS
+                $data = $form->getData();
+                
+                /*//AGREGO LAS RTA AL EXAMEN 
+                foreach ($rtaDeExamen as $res){                
+                    $examenrealizado->addRespuestarespuestum($res); //AGREGO A EXAMEN LAS RTAS
+                // print_r($res->getDescripcion());
+                }*/
+                // PERSISTO            
+                $entityManager = $this->getDoctrine()->getManager();
+                //$examenrealizado->setEstacompletado(1); SI COMPLETO
+                $entityManager->persist($examenrealizado);
+                $entityManager->flush();
+                    
+                $this->insertarRespuestasDeExamenRealizado($examenrealizado->getIdexamenrealizado(), $respuestaElegidas);
+                //RECARGO PAGINA --> CARGARA PROXIMAS RESPUESTAS
+            
+                return $this->redirect($this->generateUrl('examenrealizado_realizando',
+                                     array('idexamenrealizado' => $idexamenrealizado, 
+                                     'idalumno' => $idalumno )));
+            }
         }
-
         return $this->render('examenrealizado/realizando.html.twig', array(
             'examenrealizado' => $examenrealizado, 'alumno' => $alumno, 'preguntas' => $preguntasDeExamen,
-            'respuestas' => $rtaDeExamen, 'form' => $form->createView(),
+            /*'respuestas' => $rtaDeExamen, */'form' => $form->createView(),
         ));
     }
     
@@ -291,7 +311,7 @@ class ExamenrealizadoController extends Controller
      */
     public function guardarResultadoParcialAction(Request $request, int $idexamenrealizado, int $idalumno)
     {   
-        print_r("guardando");
+        //print_r("guardando");
         $p1 = $_POST["consulta"];
         die();
         return $this->render('examenrealizado/realizando.html.twig', array(
@@ -300,5 +320,81 @@ class ExamenrealizadoController extends Controller
         ));
     }
 
+    public function insertarRespuestasDeExamenRealizado(int $idexamenrealizado, ArrayCollection $respuestas){
+        $entityManager = $this->getDoctrine()->getEntityManager();
+    
+        foreach ($respuestas as $respuesta){            
+            try{
+                $query = $entityManager->createNativeQuery("CALL sp_guardar_respuestas_realizadas(" .":rta,:idExamenResuelto" .")",            
+                new ResultSetMapping());
+                $query->setParameters(
+                    array(
+                    "idExamenResuelto" => $idexamenrealizado,
+                    "rta" => $respuesta,
+                    ));
+                $query->execute();
+                $entityManager->flush();
+                die();
+            }
+            catch(\Exception $e){
+                $errorMessage = $e->getMessage();
+            }
+        }
+    }
 
+    public function consultarUltimaPreguntaDeExamen(int $idexamenrealizado):?int{
+        /*SELECT MAX(idPregunta) into _ultima FROM `royal_academy`.pregunta 
+        inner join respuesta on pregunta.idPregunta=respuesta.Pregunta_idPregunta
+        inner join examenrealizado_has_respuesta on respuesta.idrespuesta = examenrealizado_has_respuesta.respuesta_idrespuesta
+        where examenrealizado_has_respuesta.ExamenRealizado_idExamenRealizado=1
+        order by pregunta.idPregunta;*/
+        $preguntaMaxima=0;
+        try{
+            $repository= $this->getDoctrine()
+            ->getRepository(Pregunta::class);
+
+            $query = $repository->createQueryBuilder('pregunta')
+            ->where('examenrealizado.idexamenrealizado = :idExamenrealizado')
+            ->leftJoin('pregunta.respuestas', 'rtas')
+            ->leftJoin('rtas.examenrealizadoexamenrealizado', 'examenrealizado')
+            ->setParameter('idExamenrealizado', $idexamenrealizado )
+            ->orderBy('pregunta.idpregunta', 'desc')
+            ->getQuery();
+            $preguntasContestadas = $query->getResult();   
+            if($preguntasContestadas != NULL){
+                $preguntaMaxima = $preguntasContestadas[0]->getIdpregunta();
+            }
+        }
+        catch(\Exception $e){
+            $errorMessage = $e->getMessage();
+            print_r($e->getMessage());
+        }
+        return $preguntaMaxima;
+        
+    }
+
+    /*
+    public function consultarUltimaPreguntaDeExamen(int $idexamenrealizado):?int{
+        $entityManager = $this->getDoctrine()->getEntityManager();
+        try{
+            //CALL `royal_academy`.`sp_get_ultima_pregunta_examen_realizado`(1,@ultima);
+            //$ultimaPregunta = 1;
+            $query = $entityManager->createNativeQuery("CALL sp_get_ultima_pregunta_examen_realizado(" .":idExamenResuelto, @ultima" .")",            
+            new ResultSetMapping());
+            $query->setParameters(
+                array(
+                "idExamenResuelto" => $idexamenrealizado,
+                "ultima" => $ultimaPregunta,
+                ));
+            $query->execute();
+            $entityManager->flush();        
+            $ultima = $query->getResult();
+        }
+        catch(\Exception $e){
+            $errorMessage = $e->getMessage();
+        }
+        
+        return $ultimaPregunta;
+    }
+    */
 }
