@@ -10,3 +10,4 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `guardar_respuestas_realizadas`(IN p
 BEGIN
 	 insert into examen_has_respuesta(respuesta_idrespuesta, ExamenRealizado_idExamenRealizado) values (p_idex, p_rta);
 END
+
