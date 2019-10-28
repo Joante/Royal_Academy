@@ -223,4 +223,8 @@ class Materia
     {
         return $this->carreracarrera;
     }
+    public function __toString()
+    {
+        return (string) $this->nombre;
+    }
 }

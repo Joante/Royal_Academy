@@ -66,8 +66,9 @@ class Examen
     {
         return $this->fechaexamenfechaexamen;
     }
+
     public function __toString(){
-        return (string)$this->getIdexamen();
+        return "Examen: ". (string)$this->getIdexamen() . " - Fecha: " . (string)$this->getFechaexamenfechaexamen();
 
     }
 }
