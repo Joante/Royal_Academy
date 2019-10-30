@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Pai</h1>
+    <h1>Pais</h1>
 
     <table>
-        <tbody>
+        <thead>
             <tr>
                 <th>Nombre</th>
-                <td>{{ pai.nombre }}</td>
-            </tr>
-            <tr>
                 <th>Idpais</th>
-                <td>{{ pai.idpais }}</td>
             </tr>
-        </tbody>
+        </thead>
+            <tr>
+                <td>{{ pais.nombre }}</td>
+                <td>{{ pais.idpais }}</td>
+            </tr>
+        
     </table>
 
     <ul>
@@ -21,7 +22,7 @@
             <a href="{{ path('pais_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('pais_edit', { 'idpais': pai.idpais }) }}">Edit</a>
+            <a href="{{ path('pais_edit', { 'idpais': pais.idpais }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

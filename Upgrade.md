@@ -9,3 +9,6 @@ v0.1:
 	Fin.
 
 C:\wamp64\www\Royal_Academy>php bin/console server:run
+
+"symfony/templating": "^4.3",
+composer.json linea 34

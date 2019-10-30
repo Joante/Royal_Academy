@@ -8,7 +8,7 @@
         {% block stylesheets %}
             <link href="{{ asset('css/top_bar.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('css/footer.css') }}" type="text/css" rel="stylesheet" />
-            <link href="{{ asset('css/foundation.min.css') }}" type="text/css" rel="stylesheet">
+            <link href="{{ asset('css/tablas.css') }}" type="text/css" rel="stylesheet">
             <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
         {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -34,19 +34,19 @@
                     </li>
                     <li class="menu2"><a href="#">Pais</a>
                         <ul>
-                            <li><a href="#">Crear</a></li>
+                            <li><a href="/pais/new">Crear</a></li>
                             <li><a href="#">Eliminar</a></li>
                             <li><a href="#">Modificar</a></li>
-                            <li><a href="#">Listar</a></li>
+                            <li><a href="/pais">Listar</a></li>
                             <li><a href="#">Buscar</a></li>
                         </ul>
                     </li>
                     <li class="menu3"><a href="#">Sede</a>
                         <ul>
-                            <li><a href="#">Crear</a></li>
+                            <li><a href="/sede/new">Crear</a></li>
                             <li><a href="#">Eliminar</a></li>
                             <li><a href="#">Modificar</a></li>
-                            <li><a href="#">Listar</a></li>
+                            <li><a href="/sede">Listar</a></li>
                             <li><a href="#">Buscar</a></li>
                         </ul>
                     </li>
@@ -55,7 +55,7 @@
                             <li><a href="{{ path('pregunta_new') }}">Crear</a></li>
                             <li><a href="#">Eliminar</a></li>
                             
-                            <li><a href="#">Listar</a></li>
+                            <li><a href="/pregunta">Listar</a></li>
                             <li><a href="#">Buscar</a></li>
                         </ul>
                     </li>
