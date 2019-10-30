@@ -31,11 +31,13 @@ class CorregidorExamenController extends Controller
     /**
      * Lists all CorregidorExamen entities.
      *
-     * @Route("/{aprobados}", name="corrigiendo_index")
+     * @Route("/{aprobados}{rtasParaAprobar}{idExamenACorregir}", name="corrigiendo_index")
      * @Method({"GET", "POST"})
      */
-    public function indexAction(Request $request, int $aprobados=0)
+    public function indexAction(Request $request, int $aprobados=0, int $rtasParaAprobar, int $idExamenACorregir)
     {
+        print_r($idExamenACorregir);
+ 
        $form = $this->createForm('RoyalAcademyBundle\Form\CorrigiendoExamenType');  
        $minimoDeAprobacion=0;
         /*
@@ -47,7 +49,6 @@ class CorregidorExamenController extends Controller
         ->orderBy('pregunta.idpregunta', 'desc')
         ->getQuery();
 */
-
         $repository = $this->getDoctrine()
         ->getRepository(Examen::class);
         $query = $repository->createQueryBuilder('examen') //HABRIA Q TRAER LA MATERIATAMBIEN
@@ -55,11 +56,28 @@ class CorregidorExamenController extends Controller
         ->orderBy('examen.idexamen', 'ASC')
         ->getQuery();
         $examenes = $query->getResult();
+
+        $form->add('cantidadDeRespuestasNecesariasParaAprobar', IntegerType::class, [
+            'attr' => ['class' => 'tinymce', 'scale' =>0, 'min' =>1 ,
+             'max' =>50 ,'value' => $rtasParaAprobar, 'empty_data'=> 1 ]
+        ]);
+//SI EL EXAMEN QUE TRAIGO ES <> NULL -> LO BUSCO Y MUESTRO SINO MUESTRO POR DEFAULT
+$repository = $this->getDoctrine()
+        ->getRepository(Examen::class);
+        $query = $repository->createQueryBuilder('examen') //HABRIA Q TRAER LA MATERIATAMBIEN
+        ->where('examen.idexamen = :idExamenACorregir')
+        ->leftJoin('examen.fechaexamenfechaexamen', 'fecha')
+        ->setParameter('idExamenACorregir', $idExamenACorregir)
+        ->getQuery()->getOneOrNullResult();
+        $examenAcorregir = $query;
+
+//        print_r($examenAcorregir->getIdexamen());
         
         $form->add("idExamenACorregir", EntityType::class, [
             "mapped" => false,            
             'class' => Examen::class,            
             'choices' => $examenes,
+            'data' => $examenAcorregir,
         ]);
                 
         $form->add('Aprobarian:', IntegerType::class, [
@@ -120,14 +138,19 @@ class CorregidorExamenController extends Controller
                 }
                 print_r("--> CANTIDAD DE APROBADOS: ". $aprobados);
                 return $this->redirectToRoute('corrigiendo_index', 
-                array('aprobados' => $aprobados,  'form' => $form->createView()));
+                array('aprobados' => $aprobados,  
+                'rtasParaAprobar'=> $form->get('cantidadDeRespuestasNecesariasParaAprobar')->getData(),
+                'idExamenACorregir'=> $examen->getIdexamen(),
+                'form' => $form->createView()));
             }
 
         }
 
         return $this->render('corrigiendo/index.html.twig', array(
             'aprobados' => $aprobados, 'notaMinima' => $minimoDeAprobacion,
-            'idExamenACorregir'=> $form->get('idExamenACorregir')->getData(), 'form' => $form->createView()
+            'idExamenACorregir'=> $examenAcorregir->getIdexamen(),
+            'rtasParaAprobar'=> $form->get('cantidadDeRespuestasNecesariasParaAprobar')->getData(),
+            'form' => $form->createView()
         ));
 
     }
