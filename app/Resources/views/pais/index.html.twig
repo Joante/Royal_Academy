@@ -12,17 +12,17 @@
             </tr>
         </thead>
         <tbody>
-        {% for pai in pais %}
+        {% for pais in pais %}
             <tr>
-                <td><a href="{{ path('pais_show', { 'idpais': pai.idpais }) }}">{{ pai.nombre }}</a></td>
-                <td>{{ pai.idpais }}</td>
+                <td><a href="{{ path('pais_show', { 'idpais': pais.idpais }) }}">{{ pais.nombre }}</a></td>
+                <td>{{ pais.idpais }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('pais_show', { 'idpais': pai.idpais }) }}">show</a>
+                            <a href="{{ path('pais_show', { 'idpais': pais.idpais }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('pais_edit', { 'idpais': pai.idpais }) }}">edit</a>
+                            <a href="{{ path('pais_edit', { 'idpais': pais.idpais }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -33,7 +33,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('pais_new') }}">Create a new pai</a>
+            <a href="{{ path('pais_new') }}">Create a new pais</a>
         </li>
     </ul>
 {% endblock %}

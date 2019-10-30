@@ -1,27 +1,27 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Pai</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ pai.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Idpais</th>
-                <td>{{ pai.idpais }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+    <h1>Pais</h1>
+    <div id=table-css>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Idpais</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td>{{ pais.nombre }}</td>
+                    <td>{{ pais.idpais }}</td>
+                </tr>
+        </table>
+    </div>
     <ul>
         <li>
             <a href="{{ path('pais_index') }}">Back to the list</a>
         </li>
         <li>
-            <a href="{{ path('pais_edit', { 'idpais': pai.idpais }) }}">Edit</a>
+            <a href="{{ path('pais_edit', { 'idpais': pais.idpais }) }}">Edit</a>
         </li>
         <li>
             {{ form_start(delete_form) }}
