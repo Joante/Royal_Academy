@@ -43,7 +43,7 @@ class ExamenrealizadoController extends Controller
    // createQueryBuilder() automatically selects FROM AppBundle:Product
    // and aliases it to "p"
         $query = $repository->createQueryBuilder('p')
-        ->where('p.alumnoalumno = :id and p.estacompletado = 0')
+        ->where('p.alumnoalumno = :id ') //and p.estacompletado = 0
         ->setParameter('id', $idalumno)
         ->leftjoin('p.alumnoalumno','Alumno')
         ->orderBy('p.idexamenrealizado', 'ASC')

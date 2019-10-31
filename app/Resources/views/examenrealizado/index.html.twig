@@ -14,7 +14,7 @@
                 <th>Fecha</th>
                 <th>Turno</th>
                 <th>Fechainicio</th>
-                <th>Actions</th>
+                <th>Completado</th>
             </tr>
         </thead>
         <tbody>
@@ -24,11 +24,11 @@
                 <td>{% if examenrealizado.fecha %}{{ examenrealizado.fecha|date('Y-m-d') }}{% endif %}</td>
                 <td>{{ examenrealizado.turno }}</td>            
                 <td>{% if examenrealizado.fechainicio %}{{ examenrealizado.fechainicio|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ examenrealizado.idexamenrealizado }}</td>
+                <td>{% if examenrealizado.estacompletado %}{{"SI"}} {% else %} {{"NO"}}{% endif %}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('examenrealizado_realizando', {'idexamenrealizado':examenrealizado.idexamenrealizado,'idalumno':alumno.idalumno}) }}">Realizar Examen</a>
+                            <a  {% if examenrealizado.estacompletado == 0 %} href="{{ path('examenrealizado_realizando', {'idexamenrealizado':examenrealizado.idexamenrealizado,'idalumno':alumno.idalumno}) }} {% endif %}  ">Realizar Examen</a>
                         </li>
                     </ul>
                 </td>
