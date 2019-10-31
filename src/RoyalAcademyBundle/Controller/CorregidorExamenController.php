@@ -36,7 +36,7 @@ class CorregidorExamenController extends Controller
      */
     public function indexAction(Request $request, int $aprobados=0, int $rtasParaAprobar, int $idExamenACorregir)
     {
-        print_r($idExamenACorregir);
+        //print_r($idExamenACorregir);
  
        $form = $this->createForm('RoyalAcademyBundle\Form\CorrigiendoExamenType');  
        $minimoDeAprobacion=0;
@@ -62,7 +62,7 @@ class CorregidorExamenController extends Controller
              'max' =>50 ,'value' => $rtasParaAprobar, 'empty_data'=> 1 ]
         ]);
 //SI EL EXAMEN QUE TRAIGO ES <> NULL -> LO BUSCO Y MUESTRO SINO MUESTRO POR DEFAULT
-$repository = $this->getDoctrine()
+        $repository = $this->getDoctrine()
         ->getRepository(Examen::class);
         $query = $repository->createQueryBuilder('examen') //HABRIA Q TRAER LA MATERIATAMBIEN
         ->where('examen.idexamen = :idExamenACorregir')
@@ -97,7 +97,40 @@ $repository = $this->getDoctrine()
             if ($request->isMethod('POST')) {
 
                 if ($form->get('EfectuarCorreccion')->isClicked()){
-                    die(); //REDIRECCIONO A PAGINA Q DA OK DE CORRCCION
+                    //die(); //REDIRECCIONO A PAGINA Q DA OK DE CORRCCION
+                    //TRAIGO EXAMENES REALIZADOS CON EXAMEN Y EVALUO UNO A 1 SEGUN CANTIDAD DE APROBADAS
+                    $repository= $this->getDoctrine()->getRepository(ExamenRealizado::class);
+        
+                    $query = $repository->createQueryBuilder('examenesAcorregir')
+                    ->where('examenesAcorregir.examenexamen = :idexamen')
+                    //->leftJoin('examenesAcorregir.respuestarespuesta', 'rtas')
+                    ->setParameter('idexamen', $examenAcorregir->getIdexamen())
+                    ->orderBy('examenesAcorregir.idexamenrealizado', 'asc')
+                    ->getQuery();
+                    $examenesRealizados = $query->getResult();   
+                    
+                    if($examenesRealizados != NULL){
+                                                
+                        foreach ($examenesRealizados as $e) {
+                            $cantRespuestasCorrectasDelExamen = 0;
+                            $rtas = $e->getRespuestarespuesta();
+                            foreach ($rtas as $rta){
+                                 if ($rta->getEscorrecta() == 1) {
+                                     $cantRespuestasCorrectasDelExamen = $cantRespuestasCorrectasDelExamen+1;
+                                 }
+                            $notaExamen = $this->calcularNota($form->get('cantidadDeRespuestasNecesariasParaAprobar')->getData(), $cantRespuestasCorrectasDelExamen);
+                            $e->setNota($notaExamen);
+                            $em = $this->getDoctrine()->getManager();
+                            $em->persist($e);
+                            $em->flush();
+                            }
+                        }                        
+                    }
+                    else{
+                        print_r("NULL");
+                        die();
+                    }
+                    
                 }
 
                 $aprobados=0;                             
@@ -109,9 +142,9 @@ $repository = $this->getDoctrine()
                 $examen = $form->get('idExamenACorregir')->getData();
 
                 foreach ($examenesRealizados as $examenRealizado){
-                    print_r(("OTROEXMEN"));
-                    print_r($examen->getIdexamen());
-                    print_r($examenRealizado->getIdexamenrealizado());
+                    //print_r(("OTROEXMEN"));
+                    //print_r($examen->getIdexamen());
+                    //print_r($examenRealizado->getIdexamenrealizado());
                     $repository2 = $this->getDoctrine()
                         ->getRepository(Pregunta::class);
                     
@@ -125,8 +158,8 @@ $repository = $this->getDoctrine()
                     ->getQuery();
                     
                     $cantidadCorrectasEnExamenRealizado = count($query2->getResult());   
-                    print_r("correctas: ". $cantidadCorrectasEnExamenRealizado. "\n");
-                    print_r("cantidad para aprobar". $minimoDeAprobacion);
+                    //print_r("correctas: ". $cantidadCorrectasEnExamenRealizado. "\n");
+                    //print_r("cantidad para aprobar". $minimoDeAprobacion);
                     if($cantidadCorrectasEnExamenRealizado == NULL){
                         print_r("NULO");
                     }
@@ -136,7 +169,7 @@ $repository = $this->getDoctrine()
                     }
         
                 }
-                print_r("--> CANTIDAD DE APROBADOS: ". $aprobados);
+                //print_r("--> CANTIDAD DE APROBADOS: ". $aprobados);
                 return $this->redirectToRoute('corrigiendo_index', 
                 array('aprobados' => $aprobados,  
                 'rtasParaAprobar'=> $form->get('cantidadDeRespuestasNecesariasParaAprobar')->getData(),
@@ -163,7 +196,20 @@ $repository = $this->getDoctrine()
      */
     public function corregirAction(Request $request, int $notaMinima, int $idExamenACorregir)
     {
+    
+    }
 
+    public function calcularNota(int $rtasMinimas, int $respuestaCorrectas):?int
+    {   
+        $nota = 2;
+        if ($respuestaCorrectas >= $rtasMinimas){
+            $nota = $respuestaCorrectas * 2; 
+            if ($nota < 4){
+                $nota=4;
+            }
+        }
+
+        return $nota;
     }
 
 }

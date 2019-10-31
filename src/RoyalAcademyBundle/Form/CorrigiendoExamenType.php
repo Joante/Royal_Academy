@@ -17,11 +17,7 @@ class CorrigiendoExamenType extends AbstractType
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('cantidadDeRespuestasNecesariasParaAprobar', IntegerType::class, [
-            'attr' => ['class' => 'tinymce', 'scale' =>0, 'min' =>1 , 'max' =>50 ]
-        ]);
-        
+    {        
         /*
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
