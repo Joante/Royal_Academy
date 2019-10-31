@@ -6,27 +6,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SedeType extends AbstractType
+class ExamenType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-        ->add('nombre')
-
-        ->add('paispais','Sede', array(
-            'class' => 'RoyalAcademyBundle:Pais',
-            'property' => 'nombre',
-        ));
+        $builder->add('fechaexamenfechaexamen');
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'RoyalAcademyBundle\Entity\Sede'
+            'data_class' => 'RoyalAcademyBundle\Entity\Examen'
         ));
     }
 
@@ -35,7 +29,7 @@ class SedeType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'royalacademybundle_sede';
+        return 'royalacademybundle_examen';
     }
 
 

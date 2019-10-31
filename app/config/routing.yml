@@ -5,3 +5,7 @@ royal_academy:
 
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+royal_academy_examen:
+        resource: "@RoyalAcademyBundle/Resources/config/routing/examen.php"
+        prefix:   /examen

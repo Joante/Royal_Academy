@@ -8,6 +8,19 @@ table{
     width: 100%;
     border-collapse: collapse;
     text-align: left;
+    font-family:Arial;
+}
+
+table a{
+    text-decoration: none;
+    /*text-decoration-style: none;*/
+    color:black;
+}
+
+table li a{
+    text-decoration: none;
+    /*text-decoration-style: none;*/
+    color:white;
 }
 
 th,td{
@@ -25,7 +38,12 @@ tr:nth-child(even){
     background-color: #ddd;
 }
 
-tr:hover td{
-    background-color: rgb(87, 148, 130);
+tr:hover td,td:hover a{
+    /*background-color: rgb(87, 148, 130);*/
+    background-color: rgb(153, 183, 238);
     color:white;
+}
+
+table li a:hover{
+    background-color: black;
 }
