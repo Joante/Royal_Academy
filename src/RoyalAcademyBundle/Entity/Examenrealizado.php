@@ -72,6 +72,16 @@ class Examenrealizado
      * })
      */
     private $alumnoalumno;
+        
+    /**
+     * @var \RoyalAcademyBundle\Entity\Examen
+     *
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Examen")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Examen_idExamen", referencedColumnName="idExamen")
+     * })
+     */
+    private $examenexamen;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -301,5 +311,28 @@ class Examenrealizado
     public function getRespuestarespuesta()
     {
         return $this->respuestarespuesta;
+    }
+    /**
+     * Set examenexamen
+     *
+     * @param \RoyalAcademyBundle\Entity\Alumno $alumnoalumno
+     *
+     * @return Examenrealizado
+     */
+    public function setExamenexamen(\RoyalAcademyBundle\Entity\Examen $examenexamen = null)
+    {
+        $this->examenexamen = $examenexamen;
+
+        return $this;
+    }
+
+    /**
+     * Get examenexamen
+     *
+     * @return \RoyalAcademyBundle\Entity\Examen
+     */
+    public function getExamenexamen()
+    {
+        return $this->examenexamen;
     }
 }

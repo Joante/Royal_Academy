@@ -101,4 +101,8 @@ class Pregunta
     {
         return (string) $this->descripcion;
     }
+    /**
+     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
+     */
+    private $respuestas;
 }

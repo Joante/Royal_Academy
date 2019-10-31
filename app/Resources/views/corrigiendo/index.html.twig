@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>CORREGIR EXAMENES</h1>
+    <table>
+        <thead>
+            <tr>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}                
+                {#<input type="submit" value="Calcular" name="calc"/>#}
+                {#<input type="submit" value="Efectuar" name="Efectuar"/>#}
+                {{ form_end(form) }}
+                {#<td>
+                    <ul>
+                        <li>
+                         {<a href="{{ path('corrigiendo_corregir', { 'idExamenACorregir': 1,'notaMinima': notaMinima }) }}">EFECTUAR</a>}
+                        </li>
+                    </ul>
+                </td>#}
+            </tr>                                 
+        </tbody>
+    </table>
+{% endblock %}

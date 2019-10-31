@@ -13,7 +13,7 @@ class ExamenrealizadoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('estaCompletado');
+       // $builder->add('estaCompletado');
     }/**
      * {@inheritdoc}
      */
