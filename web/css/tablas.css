@@ -9,6 +9,7 @@ table{
     border-collapse: collapse;
     text-align: left;
     font-family:Arial;
+    padding-bottom: 2rem;
 }
 
 table a{
@@ -38,12 +39,14 @@ tr:nth-child(even){
     background-color: #ddd;
 }
 
-tr:hover td,td:hover a{
+tr:hover td,tr:hover td > a{
     /*background-color: rgb(87, 148, 130);*/
     background-color: rgb(153, 183, 238);
     color:white;
+    text-decoration: none;
 }
 
+/*
 table li a:hover{
     background-color: black;
-}
+}*/
