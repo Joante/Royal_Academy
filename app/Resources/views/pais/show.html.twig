@@ -1,33 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Pais</h1>
+    <div class="estilo-body">
+        <h1>Pais</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Idpais</th>
-            </tr>
-        </thead>
-            <tr>
-                <td>{{ pais.nombre }}</td>
-                <td>{{ pais.idpais }}</td>
-            </tr>
-        
-    </table>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Idpais</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td>{{ pais.nombre }}</td>
+                    <td>{{ pais.idpais }}</td>
+                </tr>
+            
+        </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('pais_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('pais_edit', { 'idpais': pais.idpais }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+        <ul>
+            <li>
+                <a href="{{ path('pais_index') }}">Back to the list</a>
+            </li>
+            <li>
+                <a href="{{ path('pais_edit', { 'idpais': pais.idpais }) }}">Edit</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                    <input type="submit" value="Delete">
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
 {% endblock %}

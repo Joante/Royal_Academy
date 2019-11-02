@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="estilo-body">
     <h1>Pais list</h1>
-
+    <div class="container-fluid">
     <table>
         <thead>
             <tr>
@@ -36,4 +37,6 @@
             <a href="{{ path('pais_new') }}">Create a new pais</a>
         </li>
     </ul>
+    </div>
+</div>
 {% endblock %}

@@ -1,0 +1,77 @@
+.estilo-body h1,.estilo-body h2{
+    text-align: center;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
+.estilo-body ul{
+    list-style-type: none;
+    background-color: #333;
+    text-align: center;
+    display: block;
+    /*float: left;*/
+    margin: 0;
+    padding: 0;
+}
+
+.estilo-body ul a{
+    display: block;
+    text-decoration: none;
+}
+
+.estilo-body li:hover{
+    background-color: #111;
+    cursor: pointer;
+    transition: all 300ms;
+}
+
+.formulario{
+    width: 300px;
+    margin: 0 auto;
+    background-color: #ddd;
+    padding: 15px;
+    border-radius: 3px;
+}
+
+.formulario input,.formulario textarea{
+    border: 0;
+    outline: none; 
+    width: 280px;
+}
+
+.field{
+    border: solid 1px black;
+    padding: 10px;
+    padding-bottom: 10px;
+    
+}
+
+.formulario .bottom{
+    border-radius: 3px;
+    display: inline-block;
+    padding: 20px 15px;
+    background-color:  #333;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0,3);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0,3);
+    width: 280px;
+}
+
+.formulario .bottom:hover{
+    background-color:  black;
+    /*color: white;*/  
+}
+
+.estilo-body .bottom{
+    display: block;
+    text-decoration: none;
+    border: 0;
+    outline: none;
+}
+
+.estilo-body .bottom:hover{
+    background-color:  black;
+    cursor: pointer;
+    transition: all 300ms;
+}
