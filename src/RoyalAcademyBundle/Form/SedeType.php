@@ -14,12 +14,7 @@ class SedeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('nombre')
-
-        ->add('paispais','Sede', array(
-            'class' => 'RoyalAcademyBundle:Pais',
-            'property' => 'nombre',
-        ));
+        ->add('nombre')->add('paispais');
     }/**
      * {@inheritdoc}
      */

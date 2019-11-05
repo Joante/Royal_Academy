@@ -63,4 +63,8 @@ class Pais
     {
         return $this->idpais;
     }
+    public function __toString()
+    {
+        return $this->getNombre();
+    }
 }
