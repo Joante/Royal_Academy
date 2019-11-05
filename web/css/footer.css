@@ -2,7 +2,7 @@
 	font-family:fuente_2;
 	font-style:normal;
 	font-weight:normal;
-  src: url(fonts/futura.ttf);
+    src: url(fonts/futura.ttf);
 }
 
 footer{
@@ -13,8 +13,6 @@ footer{
     padding: 0px;
     box-sizing: border-box;
     font-family:fuente_2;
-    /*font-family: sans-serif; */  
-    
 }
 
 .container-footer-all{
@@ -52,17 +50,17 @@ footer{
     font-size: 22px;
 }
 
-.row{
+.fila{
     margin-top: 20px;
     display: flex;
 }
 
-.row img{
+.fila img{
     width: 36px;
     height: 36px;
 }
 
-.row label{
+.fila label{
     margin-top: 10px;
     margin-left: 20px;
     color: #C7C7C7;
@@ -76,17 +74,17 @@ footer{
     font-size: 22px;
 }
 
-.row2{
+.fila2{
     margin-top: 20px;
     display: flex;
 }
 
-.row2 img{
+.fila2 img{
     width: 36px;
     height: 36px;
 }
 
-.row2 label{
+.fila2 label{
     margin-top: 10px;
     margin-left: 20px;
     max-width: 140px;
@@ -120,7 +118,11 @@ footer{
     color: #C7C7C7;
 }
 
-
+.fila a{
+    color: white;
+    text-decoration: none;
+}
+/*
 @media screen and (max-width: 1100px){
     
     .container-body{
@@ -135,4 +137,4 @@ footer{
     .colum3{
         margin-top: 40px;
     }
-}
+}*/

@@ -1,16 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Pais creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('pais_index') }}">Back to the list</a>
-        </li>
-    </ul>
+    <div class="estilo-body">
+        <h1>Pais creation</h1>
+        <br>
+        <div class="formulario">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <input type="submit" value="Create" class="bottom"/>
+            {{ form_end(form) }}
+        </div>
+        <br>
+        <br>
+        <br>
+        <ul>
+            <li>
+                <a href="{{ path('pais_index') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
 {% endblock %}

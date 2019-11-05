@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Lista de Sedes</h1>
-
+<div class="estilo-body">
+    <h1>Sedes list</h1>
+    <br>
     <table>
         <thead>
             <tr>
@@ -30,10 +31,13 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <br>
+    <br>
+    <br>
     <ul>
         <li>
             <a href="{{ path('sede_new') }}">Create a new sede</a>
         </li>
     </ul>
+</div>
 {% endblock %}
