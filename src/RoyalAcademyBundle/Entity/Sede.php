@@ -97,4 +97,9 @@ class Sede
     {
         return $this->paispais;
     }
+
+    public function __toString()
+    {
+        return (string) $this->getNombre();
+    }
 }

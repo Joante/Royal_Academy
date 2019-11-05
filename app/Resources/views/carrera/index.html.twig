@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="estilo-body">
+    <h1>Carreras list</h1>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Idcarrera</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for carrera in carreras %}
+            <tr>
+                <td><a href="{{ path('carrera_show', { 'idcarrera': carrera.idcarrera }) }}">{{ carrera.nombre }}</a></td>
+                <td>{{ carrera.idcarrera }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('carrera_show', { 'idcarrera': carrera.idcarrera }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('carrera_edit', { 'idcarrera': carrera.idcarrera }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <ul>
+        <li>
+            <a href="{{ path('carrera_new') }}">Create a new carrera</a>
+        </li>
+    </ul>
+    </div>
+{% endblock %}

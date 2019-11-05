@@ -3,6 +3,7 @@
 namespace RoyalAcademyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Pregunta
@@ -38,7 +39,17 @@ class Pregunta
      */
     private $examenexamen;
 
+    /**
+     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
+     */
+    private $respuestas;
 
+
+    public function __construct()
+    {
+        $this->examenexamen = new Examen();
+        $this->respuestas = new ArrayCollection();
+    }
 
     /**
      * Set descripcion
@@ -97,12 +108,28 @@ class Pregunta
     {
         return $this->examenexamen;
     }
+
+
+    public function getRespuestas()
+    {
+        return $this->respuestas;
+    }
+
+    public function addRespuesta(Respuesta $respuesta)
+    {
+        $this->respuestas->add($respuesta);
+    }
+
+    public function removeRespuesta(Respuesta $respuesta)
+    {
+        $this->respuestas->remove($respuesta);
+    }
+
+
+
     public function __toString()
     {
         return (string) $this->descripcion;
     }
-    /**
-     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
-     */
-    private $respuestas;
+    
 }

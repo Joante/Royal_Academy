@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Alumno</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ alumno.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Dni</th>
+                <td>{{ alumno.dni }}</td>
+            </tr>
+            <tr>
+                <th>Edad</th>
+                <td>{{ alumno.edad }}</td>
+            </tr>
+            <tr>
+                <th>Sexo</th>
+                <td>{{ alumno.sexo }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ alumno.email }}</td>
+            </tr>
+            <tr>
+                <th>Idalumno</th>
+                <td>{{ alumno.idalumno }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('alumno_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('alumno_edit', { 'idalumno': alumno.idalumno }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

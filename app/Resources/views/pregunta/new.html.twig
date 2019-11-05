@@ -1,16 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Gestor de preguntas</h1>
+    <div class="estilo-body">
+        <h1>Gestor de preguntas</h1>
+        <div class="formulario">
+            {{ form_start(form) }}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                {{ form_row(form.descripcion) }}
+                {{ form_row(form.ecamenexamen) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('pregunta_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                <h3>Respuestas</h3>
+                <ul class="respuestas" data-prototype="{{ form_widget(form.respuestas.vars.prototype)|e('html_attr') }}">
+                    {# iterate over each existing tag and render its only field: name #}
+                    {% for Respuesta in form.respuestas %}
+                        <li>{{ form_row(Respuesta.descripcion) }}</li>
+                        <li>{{ form_row(Respuesta.escorrecta) }}</li>
+                    {% endfor %}
+                </ul>
+                    <input type="submit" value="Create" class="bottom"/>
+            {{ form_end(form) }}
+        </div>
+        <ul>
+            <li>
+                <a href="{{ path('pregunta_index') }}">Back to the list</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/agregarRespuestas.js') }}" type="text/javascript"></script>
 {% endblock %}

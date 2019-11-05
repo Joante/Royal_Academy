@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="estilo-body">
+    <h1>Carrera</h1>
+    <br>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Idcarrera</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ carrera.nombre }}</td>
+                <td>{{ carrera.idcarrera }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <ul>
+        <li>
+            <a href="{{ path('carrera_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('carrera_edit', { 'idcarrera': carrera.idcarrera }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+    </div>
+{% endblock %}
