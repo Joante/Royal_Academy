@@ -1,23 +1,31 @@
 // setup an "add a respuesta" link
+//configurar un enlace "agregar una respuesta"
 var $addRespuestaLink = $('<a href="#" class="add_respuesta_link">Add a respuesta</a>');
 var $newLinkLi = $('<li></li>').append($addRespuestaLink);
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of respuestas
+    //Get the ul that holds the collection of respuestas
+
    var $collectionHolder = $('ul.respuestas');
     
     // add the "add a respuesta" anchor and li to the respuestas ul
+    //agregue el ancla "agregar una respuesta" y li a las respuestas ul
     $collectionHolder.append($newLinkLi);
     
     // count the current form inputs we have (e.g. 2), use that as the new
+    //cuente las entradas de formulario actuales que tenemos (por ejemplo, 2), utilícelo como el nuevo
     // index when inserting a new item (e.g. 2)
+    //índice al insertar un nuevo elemento (por ejemplo, 2)
     $collectionHolder.data('index', $collectionHolder.find(':input').length);
     
     $addRespuestaLink.on('click', function(e) {
         // prevent the link from creating a "#" on the URL
+        // evita que el enlace cree un "#" en la URL
         e.preventDefault();
         
         // add a new respuesta form (see code block below)
+        //agregue un nuevo formulario de respuesta (vea el bloque de código a continuación)
         addRespuestaForm($collectionHolder, $newLinkLi);
     });
     
@@ -26,6 +34,7 @@ jQuery(document).ready(function() {
 
 function addRespuestaForm($collectionHolder, $newLinkLi) {
     // Get the data-prototype explained earlier
+    //Obtenga el prototipo de datos explicado anteriormente
     var prototype = $collectionHolder.data('prototype');
     
     // get the new index
