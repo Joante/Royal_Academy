@@ -2,23 +2,28 @@
 
 {% block body %}
     <div class="estilo-body">
-        <h1>Pais edit (Editar Pais)</h1>
+        <h1>Pais edit</h1>
+        <br>
         <div class="formulario">
         {{ form_start(edit_form) }}
             {{ form_widget(edit_form) }}
-            <input type="submit" value="Edit" />
+            <input type="submit" value="Edit" class="bottom"/>
         {{ form_end(edit_form) }}
         </div>
-        <ul>
-            <li>
-                {{ form_start(delete_form) }}
-                    <input type="submit" value="Delete" class="bottom">
-                {{ form_end(delete_form) }}
-            </li>
-            <li>
-                <a href="{{ path('pais_index') }}">Back to the list</a>
-            </li>
-            
-        </ul>
+        <br>
+        <br>
+        <br>
+        <div class="container-fluid">
+             <ul class="row">
+                <li class="col-md-6">
+                    {{ form_start(delete_form) }}
+                        <input type="submit" value="Delete" class="bottom">
+                    {{ form_end(delete_form) }}
+                </li>
+                <li class="col-md-6">
+                    <a href="{{ path('pais_index') }}">Back to the list</a>
+                </li>
+            </ul>
+        </div>
     </div>
 {% endblock %}

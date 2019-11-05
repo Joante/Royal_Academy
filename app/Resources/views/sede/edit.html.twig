@@ -3,19 +3,23 @@
 {% block body %}
     <div class="estilo-body">
         <h1>Sede edit</h1>
+        <br>
         <div class="formulario">
             {{ form_start(edit_form) }}
                 {{ form_widget(edit_form) }}
-                <input type="submit" value="Edit" />
+                <input type="submit" value="Edit" class="bottom"/>
             {{ form_end(edit_form) }}
         </div>
+        <br>
+        <br>
+        <br>
         <ul>
             <li>
                 <a href="{{ path('sede_index') }}">Back to the list</a>
             </li>
             <li>
                 {{ form_start(delete_form) }}
-                    <input type="submit" value="Delete">
+                    <input type="submit" value="Delete" class="bottom">
                 {{ form_end(delete_form) }}
             </li>
         </ul>

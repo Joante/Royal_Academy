@@ -3,12 +3,13 @@
 {% block body %}
 <div class="estilo-body">
     <h1>Pais list</h1>
+    <br>
     <div class="container-fluid">
     <table>
         <thead>
             <tr>
-                <th>Nombre</th>
-                <th>Idpais</th>
+                <th>Name</th>
+                <th>ID Pais</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -31,7 +32,9 @@
         {% endfor %}
         </tbody>
     </table>
-
+    <br>
+    <br>
+    <br>
     <ul>
         <li>
             <a href="{{ path('pais_new') }}">Create a new pais</a>

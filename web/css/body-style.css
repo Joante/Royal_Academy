@@ -8,8 +8,7 @@
     list-style-type: none;
     background-color: #333;
     text-align: center;
-    display: block;
-    /*float: left;*/
+    /*display: block;*/
     margin: 0;
     padding: 0;
 }
@@ -36,7 +35,7 @@
 .formulario input,.formulario textarea{
     border: 0;
     outline: none; 
-    width: 280px;
+    width: 270px;
 }
 
 .field{
@@ -46,7 +45,8 @@
     
 }
 
-.formulario .bottom{
+
+.formulario input.bottom{
     border-radius: 3px;
     display: inline-block;
     padding: 20px 15px;
@@ -55,19 +55,27 @@
     text-decoration: none;
     text-shadow: 0 1px 0 rgba(255, 255, 255, 0,3);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0,3);
-    width: 280px;
+    width: 270px;
 }
 
-.formulario .bottom:hover{
-    background-color:  black;
-    /*color: white;*/  
+.formulario input.bottom:hover{
+    background-color:  black;  
 }
+
 
 .estilo-body .bottom{
-    display: block;
-    text-decoration: none;
     border: 0;
     outline: none;
+    border-radius: 3px;
+    /*display: block;*/
+    background-color:  #333;
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0,3);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0,3);
+    width: 50%;
+    padding: 20px 15px;
+    border-radius: 3px;
 }
 
 .estilo-body .bottom:hover{
