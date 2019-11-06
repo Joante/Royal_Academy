@@ -134,7 +134,7 @@ class Respuesta
      *
      * @return Respuesta
      */
-    public function setPreguntapregunta(\RoyalAcademyBundle\Entity\Pregunta $preguntapregunta = null)
+    public function setPreguntapregunta(\RoyalAcademyBundle\Entity\Pregunta $preguntapregunta)
     {
         $this->preguntapregunta = $preguntapregunta;
 

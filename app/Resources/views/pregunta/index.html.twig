@@ -1,8 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="estilo-body">
     <h1>Preguntas list</h1>
-
+    <br>
     <table>
         <thead>
             <tr>
@@ -12,17 +13,17 @@
             </tr>
         </thead>
         <tbody>
-        {% for preguntum in preguntas %}
+        {% for pregunta in preguntas %}
             <tr>
-                <td><a href="{{ path('pregunta_show', { 'idpregunta': preguntum.idpregunta }) }}">{{ preguntum.descripcion }}</a></td>
-                <td>{{ preguntum.idpregunta }}</td>
+                <td><a href="{{ path('pregunta_show', { 'idpregunta': pregunta.idpregunta }) }}">{{ pregunta.descripcion }}</a></td>
+                <td>{{ pregunta.idpregunta }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('pregunta_show', { 'idpregunta': preguntum.idpregunta }) }}">show</a>
+                            <a href="{{ path('pregunta_show', { 'idpregunta': pregunta.idpregunta }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('pregunta_edit', { 'idpregunta': preguntum.idpregunta }) }}">edit</a>
+                            <a href="{{ path('pregunta_edit', { 'idpregunta': pregunta.idpregunta }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -33,7 +34,8 @@
 
     <ul>
         <li>
-            <a href="{{ path('pregunta_new') }}">Create a new preguntum</a>
+            <a href="{{ path('pregunta_new') }}">Create a new pregunta</a>
         </li>
     </ul>
+    <div>
 {% endblock %}

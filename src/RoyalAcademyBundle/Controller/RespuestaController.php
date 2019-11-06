@@ -60,10 +60,10 @@ class RespuestaController extends Controller
     /**
      * Creates a new respuesta entity.
      *
-     * @Route("/new/{idPregunta}", name="respuesta_new")
+     * @Route("/new/{idPregunta}", name="respuesta_new2")
      * @Method({"GET", "POST"})
      */
-    public function newActionId(Request $request, Int $idPregunta)
+    public function newActionId(Request $request, Int $idpregunta)
     {
         $respuesta = new Respuesta();
         $form = $this->createForm('RoyalAcademyBundle\Form\RespuestaType', $respuesta);
@@ -71,9 +71,7 @@ class RespuestaController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository(Pregunta::class);
-        $pregunta = $repository->FindOneById([
-            'idPregunta' => $idPregunta,
-        ]);
+        $pregunta = $repository->FindOneById($idpregunta);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $respuesta->setPreguntapregunta($pregunta);

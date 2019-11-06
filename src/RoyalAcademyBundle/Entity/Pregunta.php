@@ -40,7 +40,7 @@ class Pregunta
     private $examenexamen;
 
     /**
-     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
+     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta", cascade={"persist"})
      */
     private $respuestas;
 
@@ -117,6 +117,7 @@ class Pregunta
 
     public function addRespuesta(Respuesta $respuesta)
     {
+        $respuesta->setPreguntapregunta($this);
         $this->respuestas->add($respuesta);
     }
 

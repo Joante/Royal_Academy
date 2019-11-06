@@ -6,7 +6,8 @@ use RoyalAcademyBundle\Entity\Pregunta;
 use RoyalAcademyBundle\Entity\Respuesta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Pregunta controller.
@@ -49,10 +50,6 @@ class PreguntaController extends Controller
             $pregunta->setExamenexamen(NULL);
             $em->persist($pregunta);
             $em->flush();
-            
-            $url=$this->router->generate('Respuesta_new',array('ìdPregunta'=>$Pregunta->getIdPregunta()));
-            $response = new RedirectResponse($url);
-            $event->setResponse($response);
 
             return $this->redirectToRoute('pregunta_show', array('idpregunta' => $pregunta->getIdpregunta()));
         }
