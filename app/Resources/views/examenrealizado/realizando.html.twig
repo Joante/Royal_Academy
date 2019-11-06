@@ -1,10 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="estilo-body">
     <h1>Realizar Examen</h1>
+    <br>
+    <div class="formulario">
+    
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <input type="submit" value="Guardar y Seguir" />
     {{ form_end(form) }}
-
+</div>
+</div>
+</br>
+</br>
 {% endblock %}
