@@ -8,14 +8,14 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Respuestum controller.
+ * Respuesta controller.
  *
  * @Route("respuesta")
  */
 class RespuestaController extends Controller
 {
     /**
-     * Lists all respuestum entities.
+     * Lists all respuesta entities.
      *
      * @Route("/", name="respuesta_index")
      * @Method("GET")
@@ -32,86 +32,118 @@ class RespuestaController extends Controller
     }
 
     /**
-     * Creates a new respuestum entity.
+     * Creates a new respuesta entity.
      *
      * @Route("/new", name="respuesta_new")
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
     {
-        $respuestum = new Respuestum();
-        $form = $this->createForm('RoyalAcademyBundle\Form\RespuestaType', $respuestum);
+        $respuesta = new Respuesta();
+        $form = $this->createForm('RoyalAcademyBundle\Form\RespuestaType', $respuesta);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->persist($respuestum);
+            $em->persist($respuesta);
             $em->flush();
 
-            return $this->redirectToRoute('respuesta_show', array('idrespuesta' => $respuestum->getIdrespuesta()));
+            return $this->redirectToRoute('respuesta_show', array('idrespuesta' => $respuesta->getIdrespuesta()));
         }
 
         return $this->render('respuesta/new.html.twig', array(
-            'respuestum' => $respuestum,
+            'respuesta' => $respuesta,
             'form' => $form->createView(),
         ));
     }
 
     /**
-     * Finds and displays a respuestum entity.
+     * Creates a new respuesta entity.
+     *
+     * @Route("/new/{idPregunta}", name="respuesta_new")
+     * @Method({"GET", "POST"})
+     */
+    public function newActionId(Request $request, Int $idPregunta)
+    {
+        $respuesta = new Respuesta();
+        $form = $this->createForm('RoyalAcademyBundle\Form\RespuestaType', $respuesta);
+        $form->handleRequest($request);
+
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository(Pregunta::class);
+        $pregunta = $repository->FindOneById([
+            'idPregunta' => $idPregunta,
+        ]);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $respuesta->setPreguntapregunta($pregunta);
+            $em->persist($respuesta);
+            $em->flush();
+
+            return $this->redirectToRoute('respuesta_show', array('idrespuesta' => $respuesta->getIdrespuesta()));
+        }
+
+        return $this->render('respuesta/new.html.twig', array(
+            'respuesta' => $respuesta,
+            'form' => $form->createView(),
+        ));
+    }
+
+    /**
+     * Finds and displays a respuesta entity.
      *
      * @Route("/{idrespuesta}", name="respuesta_show")
      * @Method("GET")
      */
-    public function showAction(Respuesta $respuestum)
+    public function showAction(Respuesta $respuesta)
     {
-        $deleteForm = $this->createDeleteForm($respuestum);
+        $deleteForm = $this->createDeleteForm($respuesta);
 
         return $this->render('respuesta/show.html.twig', array(
-            'respuestum' => $respuestum,
+            'respuesta' => $respuesta,
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Displays a form to edit an existing respuestum entity.
+     * Displays a form to edit an existing respuesta entity.
      *
      * @Route("/{idrespuesta}/edit", name="respuesta_edit")
      * @Method({"GET", "POST"})
      */
-    public function editAction(Request $request, Respuesta $respuestum)
+    public function editAction(Request $request, Respuesta $respuesta)
     {
-        $deleteForm = $this->createDeleteForm($respuestum);
-        $editForm = $this->createForm('RoyalAcademyBundle\Form\RespuestaType', $respuestum);
+        $deleteForm = $this->createDeleteForm($respuesta);
+        $editForm = $this->createForm('RoyalAcademyBundle\Form\RespuestaType', $respuesta);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('respuesta_edit', array('idrespuesta' => $respuestum->getIdrespuesta()));
+            return $this->redirectToRoute('respuesta_edit', array('idrespuesta' => $respuesta->getIdrespuesta()));
         }
 
         return $this->render('respuesta/edit.html.twig', array(
-            'respuestum' => $respuestum,
+            'respuesta' => $respuesta,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }
 
     /**
-     * Deletes a respuestum entity.
+     * Deletes a respuesta entity.
      *
      * @Route("/{idrespuesta}", name="respuesta_delete")
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, Respuesta $respuestum)
+    public function deleteAction(Request $request, Respuesta $respuesta)
     {
-        $form = $this->createDeleteForm($respuestum);
+        $form = $this->createDeleteForm($respuesta);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $em->remove($respuestum);
+            $em->remove($respuesta);
             $em->flush();
         }
 
@@ -119,16 +151,16 @@ class RespuestaController extends Controller
     }
 
     /**
-     * Creates a form to delete a respuestum entity.
+     * Creates a form to delete a respuesta entity.
      *
-     * @param Respuesta $respuestum The respuestum entity
+     * @param Respuesta $respuesta The respuesta entity
      *
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(Respuesta $respuestum)
+    private function createDeleteForm(Respuesta $respuesta)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('respuesta_delete', array('idrespuesta' => $respuestum->getIdrespuesta())))
+            ->setAction($this->generateUrl('respuesta_delete', array('idrespuesta' => $respuesta->getIdrespuesta())))
             ->setMethod('DELETE')
             ->getForm()
         ;

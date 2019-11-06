@@ -13,7 +13,7 @@ class RespuestaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descripcion')->add('escorrecta')->add('preguntapregunta');
+        $builder->add('descripcion')->add('escorrecta');
     }/**
      * {@inheritdoc}
      */

@@ -5,10 +5,10 @@
         <h1>Gestor de preguntas</h1>
         <div class="formulario">
             {{ form_start(form) }}
-
+                <h3>Question</h3>
                 {{ form_row(form.descripcion) }}
 
-                <h3>Respuestas</h3>
+                <h3>Aswers</h3>
                 <ul class="respuestas" data-prototype="{{ form_widget(form.respuestas.vars.prototype)|e('html_attr') }}">
                     {# iterate over each existing tag and render its only field: name #}
                     {% for Respuesta in form.respuestas %}
