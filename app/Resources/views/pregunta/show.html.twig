@@ -19,6 +19,27 @@
             </tbody>
         </table>
 
+        {% for Respuesta in pregunta.respuestas %}  
+            <table>
+                <thead>
+                    <tr>
+                        <th>Descripcion</th>
+                        <th>Es Correcta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ Respuesta.descripcion}}</td>
+                    {% if Respuesta.escorrecta == 1 %}
+                        <td>yes</td>
+                    {% else %}
+                        <td>no</td>
+                    {% endif %}
+                    </tr>
+                </tbody>
+            </table>
+        {% endfor %}
+
         <ul>
             <li>
                 <a href="{{ path('pregunta_index') }}">Back to the list</a>

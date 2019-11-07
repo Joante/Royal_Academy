@@ -5,7 +5,11 @@
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
+        {% for Respuesta in edit_form.respuestas %}
+            {{ form_row(Respuesta.descripcion) }}
+            {{ form_row(Respuesta.escorrecta) }}
+        {% endfor %}
+        <input type="submit" value="Edit"/>
     {{ form_end(edit_form) }}
 
     <ul>
