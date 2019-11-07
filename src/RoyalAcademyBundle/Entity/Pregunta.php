@@ -1,13 +1,11 @@
 <?php
-
 namespace RoyalAcademyBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Pregunta
  *
- * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"Materia_idMateria"})}, indexes={@ORM\Index(name="fk_Pregunta_Materia1_idx", columns={"Materia_idMateria"})})
+ * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"Examen_idExamen"})}, indexes={@ORM\Index(name="fk_Pregunta_Examen1_idx", columns={"Examen_idExamen"})})
+ * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"idMateria"})}, indexes={@ORM\Index(name="fk_pregunta_materia1_idx", columns={"idMateria"})})
  * @ORM\Entity
  */
 class Pregunta
@@ -28,16 +26,28 @@ class Pregunta
      */
     private $idpregunta;
 
- 
+    /**
+     * @var \RoyalAcademyBundle\Entity\Examen
+     *
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Examen")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Examen_idExamen", referencedColumnName="idExamen")
+     * })
+     */
+
+    private $examenexamen;
+
     /**
      * @var \RoyalAcademyBundle\Entity\Materia
      *
      * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Materia")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Materia_idMateria", referencedColumnName="idMateria")
+     *   @ORM\JoinColumn(name="idMateria", referencedColumnName="idMateria")
      * })
      */
-     private $pregunta_idMateria;
+
+    private $idMateria;
+
 
 
     /**
@@ -50,7 +60,6 @@ class Pregunta
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-
         return $this;
     }
 
@@ -74,5 +83,34 @@ class Pregunta
         return $this->idpregunta;
     }
 
+    /**
+     * Set examenexamen
+     *
+     * @param \RoyalAcademyBundle\Entity\Examen $examenexamen
+     *
+     * @return Pregunta
+     */
+    public function setExamenexamen(\RoyalAcademyBundle\Entity\Examen $examenexamen = null)
+    {
+        $this->examenexamen = $examenexamen;
+        return $this;
+    }
     
+    /**
+     * Get examenexamen
+     *
+     * @return \RoyalAcademyBundle\Entity\Examen
+     */
+    public function getExamenexamen()
+    {
+        return $this->examenexamen;
+    }
+    public function __toString()
+    {
+        return (string) $this->descripcion;
+    }
+    /**
+     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
+     */
+    private $respuestas;
 }

@@ -1,22 +1,24 @@
 {% extends 'base.html.twig' %}
+{% block stylesheets %}
+            <link href="{{ asset('app\Resources\views\gestorExamen\estiloBarra.css') }}" rel="stylesheet"/>
+        {% endblock %}
+
 
 {% block body %}
+
 
 {# Pedazo de codigo de barra de navegacion superior #}
 
 <div class="top-bar foundation-5-top-bar">
-  <div class="top-bar-title">
-    <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
-      <button class="menu-icon" type="button" data-toggle></button>
-    </span>
+  <div class="top-bar-title">    
     <strong>Royal Academy/Creacion de examenes</strong>
   </div>
   <div id="responsive-menu">
     <div class="top-bar-left">
       <ul class="dropdown vertical medium-horizontal menu"
                 data-responsive-menu="drilldown medium-dropdown" data-auto-height="true" data-animate-height="true">
-        <li><a href="#">Creador Manual</a></li>
-        <li><a href="#">Creador Automatico</a></li>
+        {# <li><a href="{{ path('gestor_examen_manual') }}">Creador Manual</a></li>
+        <li><a href="#">Creador Automatico</a></li> #}
       </ul>
     </div>
     <div class="top-bar-right">
@@ -29,7 +31,6 @@
     </div>
   </div>
 </div>
-
 
 {#Codigo de mensaje de presentacion#}
 
@@ -44,7 +45,7 @@
             <span style="background-color: #ffffff;">
             &nbsp;&nbsp;&nbsp; Bienvenido al gestor de ex&aacute;menes de Royal Academy. 
                 Por favor seleccione un m&eacute;todo de creaci&oacute;n en la parte de 
-                arriba. </span></span></span></span>
+                abajo. </span></span></span></span>
 </h4>
 <table style="width: 701px;">
     <tbody>
@@ -57,8 +58,52 @@
 <p>&nbsp;</p>
 
 
+{# Codigo de seleccion de materia #}
 
+<div class="materias">
+  <h5 class="materias-seleccion">
+    <span class="materias-label">Consulta:</span>
+    De que materia sera el examen?
+  </h5>
 
+  <form action="selector" method="post"> 
+    <div class="materias-options">
+      {% for mat in lstMaterias %}
+      <div>
+        <input type="radio" name="radMateria" value={{ mat.idMateria }} id="Preg_{{ mat.idMateria }}" required>
+        <label for="Preg_{{ mat.idMateria }}">{{ mat.Nombre }}</label>
+      </div>
+      {% endfor %}
+    
+    </div>
+    
+    <br>
+    <h5 class="gestor-seleccion">
+      <span class="gestor-label">Gestor:</span>
+      Seleccione el tipo de gestor
+    </h5>
+     
+
+    <div class="gestor-options">
+      <div>
+        <input type="radio" name="radGestor" value="manual" id="gestorManual" required checked>
+        <label for="gestorManual">Gestor Manual</label>
+      </div>
+      <div>
+        <input type="radio" name="radGestor" value="automatico" id="gestorAutomatico" required>
+        <label for="gestorAutomatico">Gestor Automatico</label>
+      </div>
+    </div>
+    <br>
+
+    <input type="submit" name="formSubmit" value="Siguiente"> <br>
+    </form>
+    
+      
+  
+</div>
+<br>
+<br>
 
 
 {% endblock %}

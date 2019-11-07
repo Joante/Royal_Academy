@@ -4,7 +4,7 @@
 
 {# Pedazo de codigo de barra de navegacion superior #}
 
-<div class="top-bar foundation-5-top-bar">
+{# <div class="top-bar foundation-5-top-bar">
   <div class="top-bar-title">
     <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
       <button class="menu-icon" type="button" data-toggle></button>
@@ -27,7 +27,7 @@
       </ul>
     </div>
   </div>
-</div>
+</div> #}
 
 
 
@@ -46,14 +46,12 @@
 
 
 {# Codigo de checkbox #}
-<table width="500" border="2" cellspacing="0" cellpadding="0" height="200">
 
-<php>
-while($)
 
-    <html><label><input type="checkbox" id="cbox1" value="first_checkbox"> 
-            Este es mi primer checkbox</label><br></html>
-
-</php>
+{% for pregunta in lstPreguntas %}
+    
+    <html><label><input type="checkbox" id="cboxPreg{{ pregunta.idPregunta }}" value= "On"> 
+            {{ pregunta.getDescripcion() }}</label><br></html>
+{% endfor %}
 
 {% endblock %}
