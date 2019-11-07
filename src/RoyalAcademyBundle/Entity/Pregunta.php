@@ -113,4 +113,15 @@ class Pregunta
      * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
      */
     private $respuestas;
+
+
+    /**
+     * Get idMateria
+     *
+     * @return integer
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
 }

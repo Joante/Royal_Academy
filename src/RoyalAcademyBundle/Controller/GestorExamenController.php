@@ -33,6 +33,31 @@ class GestorExamenController extends Controller
             array('lstMaterias' => $lstMaterias));
     }
 
+    
+    /**
+     * 
+     * @Route("/selector", name="gestor_examen_selector")
+     * @Method("GET")
+     */
+    public function selectorAction()
+    {
+
+        if (isset($_POST['radMateria'], $_POST['radGestor']))
+        { 
+            $idMateria = $_POST['radMateria'];
+            $idGestor = $_POST['radGestor'];
+        }
+                
+        if($idGestor == "manual")
+        { $ruta = 'http://localhost:8000/gestor_examen/manual'.urlencode('?').'idMateria='.$idMateria;
+            return $this->redirect($ruta);}
+        
+        if($idGestor == "automatico")
+        {$ruta = 'http://localhost:8000/gestor_examen/automatico'.urlencode('?').'idMateria='.$idMateria;
+            return $this->redirect($ruta);}
+
+    }
+    
     /**
      * Genera un examen aleatorio por materia
      *
@@ -90,25 +115,80 @@ class GestorExamenController extends Controller
 
     /**
      * 
-     * @Route("/selector", name="gestor_examen_selector")
-     * @Method("GET")
+     * @Route("/examen", name="gestor_examen_examen")
+     * @Method({"GET", "POST"})
      */
-    public function selectorAction()
+    public function examenManAction()
     {
-
-        if (isset($_POST['radMateria'], $_POST['radGestor']))
+        if (empty($_POST['chkPreguntas']))
+        {
+            return $this->redirect('http://localhost:8000/gestor_examen/error'.urlencode('?').'errCode=1');   
+        }        
+        else
         { 
-            $idMateria = $_POST['radMateria'];
-            $idGestor = $_POST['radGestor'];
+            $preguntasSelec = $_POST['chkPreguntas'];
+            $cant = count($preguntasSelec);
+
+            if ($cant > 50)
+            {return $this->redirect('http://localhost:8000/gestor_examen/error'.urlencode('?').'errCode=2');}
+
+            
+            foreach($preguntasSelec as $preg)
+            {
+                // Persistencia a la tabla Examen
+
+
+                //Traigo las preguntas
+                $em = $this->getDoctrine()->getManager();
+                $query = $em->createQuery(
+                    'select p from RoyalAcademyBundle:Pregunta p
+                        where p.idpregunta = :pregId
+                        order by p.idpregunta ASC')
+                                    ->setParameter('pregId', (int)$preg);
+
+                $lstPreguntas[(int)$preg] = $query->getResult();
+
+                // Traigo la lista de respuestas
+                $em = $this->getDoctrine()->getManager();
+
+                $query = $em->createQuery(
+                    'select r from RoyalAcademyBundle:Respuesta r
+                        where r.preguntapregunta = :preguntapregunta
+                        order by r.preguntapregunta ASC, r.idrespuesta ASC')->setParameter('preguntapregunta', (int)$preg);
+
+                $lstRespuestas[(int)$preg] = $query->getResult();
+            }
+
+            // $lstPreguntas = array_slice($lstPreguntas, 0, 1);
         }
                 
-        if($idGestor == "manual")
-        { $ruta = 'http://localhost:8000/gestor_examen/manual'.urlencode('?').'idMateria='.$idMateria;
-            return $this->redirect($ruta);}
-        
-        if($idGestor == "automatico")
-        {$ruta = 'http://localhost:8000/gestor_examen/automatico'.urlencode('?').'idMateria='.$idMateria;
-            return $this->redirect($ruta);}
+        return $this->render('gestorExamen/examen.html.twig', array(
+            'lstPreguntas' => $lstPreguntas,
+            'lstRespuestas' => $lstRespuestas
+        ));
+
+    }
+
+
+
+    /**
+     * 
+     * @Route("/error?errCode={errCode}", name="gestor_examen_error")
+     * @Method("GET")
+     */
+    public function errorAction()
+    {
+        $url = urldecode($_SERVER['REQUEST_URI']);
+        $url_components = parse_url($url);
+        parse_str($url_components['query'], $params);
+        $errCode = $params['errCode'];
+
+        if($errCode == 2){$errorMsg[1]= "No se selecciono ninguna pregunta";}
+
+        if($errCode == 2){$errorMsg[1]= "Se seleccionaron demasiadas preguntas. Desmarque algunas para continuar (Limite 50)";}
+
+        return $this->render('gestorExamen/error.html.twig',
+            array('errorMsg' => $errorMsg));
 
     }
 }
