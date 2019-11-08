@@ -1,40 +1,40 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Materia</h1>
-
-    <table>
+    <br>
+    <h1 align="center">Materia</h1>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantmax</th>
+                <th scope="col">Cantactual</th>
+                <th scope="col">Idmateria</th>
+            </tr>
+        </thead>
         <tbody>
             <tr>
-                <th>Nombre</th>
-                <td>{{ materia.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Cantmax</th>
+                <td scope="row">{{ materia.nombre }}</td>
                 <td>{{ materia.cantmax }}</td>
-            </tr>
-            <tr>
-                <th>Cantactual</th>
                 <td>{{ materia.cantactual }}</td>
-            </tr>
-            <tr>
-                <th>Idmateria</th>
                 <td>{{ materia.idmateria }}</td>
             </tr>
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('materia_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('materia_edit', { 'idmateria': materia.idmateria }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+    <div align="center">
+        <ul class="btn-group" role="group">
+            <li>
+                <a class="btn btn-dark" href="{{ path('materia_index') }}">Back to the list</a>
+            </li>
+            <li>
+                <a class="btn btn-dark" href="{{ path('materia_edit', { 'idmateria': materia.idmateria }) }}">Edit</a>
+            </li>
+            <li>
+                {{ form_start(delete_form) }}
+                    <input class="btn btn-dark" type="submit" value="Delete" >
+                {{ form_end(delete_form) }}
+            </li>
+        </ul>
+    </div>
 {% endblock %}

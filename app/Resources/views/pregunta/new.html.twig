@@ -7,6 +7,7 @@
             {{ form_start(form) }}
                 <h3>Question</h3>
                 {{ form_row(form.descripcion) }}
+                {{ form_row(form.idMateria) }}
 
                 <h3>Aswers</h3>
                 <ul class="respuestas" data-prototype="{{ form_widget(form.respuestas.vars.prototype)|e('html_attr') }}">

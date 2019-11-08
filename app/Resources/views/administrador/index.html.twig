@@ -3,30 +3,31 @@
 {% block title %}Administrador{% endblock %}
 
 {% block body %}
-    <h1>Administradors list</h1>
-
-    <table>
-        <thead>
+    <br>
+    <h1 align="center">Administradors list</h1>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <th>Nombre</th>
-                <th>Email</th>
-                <th>ID Administrador</th>
-                <th>Actions</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">ID Administrador</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for administrador in administradors %}
             <tr>
-                <td><a href="{{ path('admin_show', { 'idadministrador': administrador.idadministrador }) }}">{{ administrador.nombre }}</a></td>
+                <td scope="row"><a href="{{ path('admin_show', { 'idadministrador': administrador.idadministrador }) }}">{{ administrador.nombre }}</a></td>
                 <td>{{ administrador.email }}</td>
                 <td>{{ administrador.idadministrador }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('admin_show', { 'idadministrador': administrador.idadministrador }) }}">show</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('admin_show', { 'idadministrador': administrador.idadministrador }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('admin_edit', { 'idadministrador': administrador.idadministrador }) }}">edit</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('admin_edit', { 'idadministrador': administrador.idadministrador }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -34,10 +35,10 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
+    <br>
+    <ul align="center">
         <li>
-            <a href="{{ path('admin_new') }}">Create a new administrador</a>
+            <a class="btn btn-dark btn-lg" href="{{ path('admin_new') }}">Create a new administrador</a>
         </li>
     </ul>
 {% endblock %}

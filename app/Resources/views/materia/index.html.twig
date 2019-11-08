@@ -1,32 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Materias list</h1>
-
-    <table>
-        <thead>
+    <br>
+    <h1 align="center">Materias list</h1>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <th>Nombre</th>
-                <th>Cantmax</th>
-                <th>Cantactual</th>
-                <th>Idmateria</th>
-                <th>Actions</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Cantmax</th>
+                <th scope="col">Cantactual</th>
+                <th scope="col">Idmateria</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for materia in materias %}
             <tr>
-                <td><a href="{{ path('materia_show', { 'idmateria': materia.idmateria }) }}">{{ materia.nombre }}</a></td>
+                <td scope="row"><a href="{{ path('materia_show', { 'idmateria': materia.idmateria }) }}">{{ materia.nombre }}</a></td>
                 <td>{{ materia.cantmax }}</td>
                 <td>{{ materia.cantactual }}</td>
                 <td>{{ materia.idmateria }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('materia_show', { 'idmateria': materia.idmateria }) }}">show</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('materia_show', { 'idmateria': materia.idmateria }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('materia_edit', { 'idmateria': materia.idmateria }) }}">edit</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('materia_edit', { 'idmateria': materia.idmateria }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -35,9 +36,9 @@
         </tbody>
     </table>
 
-    <ul>
+    <ul align="center">
         <li>
-            <a href="{{ path('materia_new') }}">Create a new materia</a>
+            <a class="btn btn-dark btn-lg" href="{{ path('materia_new') }}">Create a new materia</a>
         </li>
     </ul>
 {% endblock %}

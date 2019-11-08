@@ -14,7 +14,7 @@ class PreguntaType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descripcion');
+        $builder->add('descripcion')->add('idMateria');
 
         $builder->add('respuestas', CollectionType::class, [
                     'entry_type' => RespuestaType::class,

@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="estilo-body">
-    <h1>Sedes list</h1>
     <br>
-    <table>
-        <thead>
+    <h1 align="center">Sedes list</h1>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <th>Nombre</th>
-                <th>Idsede</th>
-                <th>Actions</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Idsede</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for sede in sedes %}
             <tr>
-                <td><a href="{{ path('sede_show', { 'idsede': sede.idsede }) }}">{{ sede.nombre }}</a></td>
+                <td  scope="row"><a href="{{ path('sede_show', { 'idsede': sede.idsede }) }}">{{ sede.nombre }}</a></td>
                 <td>{{ sede.idsede }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('sede_show', { 'idsede': sede.idsede }) }}">show</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('sede_show', { 'idsede': sede.idsede }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('sede_edit', { 'idsede': sede.idsede }) }}">edit</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('sede_edit', { 'idsede': sede.idsede }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -32,12 +32,9 @@
         </tbody>
     </table>
     <br>
-    <br>
-    <br>
-    <ul>
+    <ul align="center">
         <li>
-            <a href="{{ path('sede_new') }}">Create a new sede</a>
+            <a class="btn btn-dark btn-lg" href="{{ path('sede_new') }}">Create a new sede</a>
         </li>
     </ul>
-</div>
 {% endblock %}

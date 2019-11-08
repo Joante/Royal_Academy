@@ -1,29 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="estilo-body">
-    <h1>Carreras list</h1>
     <br>
-    <table>
-        <thead>
+    <h1 align="center">Carreras list</h1>
+    <br>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
-                <th>Nombre</th>
-                <th>Idcarrera</th>
-                <th>Actions</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Idcarrera</th>
+                <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
         {% for carrera in carreras %}
             <tr>
-                <td><a href="{{ path('carrera_show', { 'idcarrera': carrera.idcarrera }) }}">{{ carrera.nombre }}</a></td>
+                <td scope="row"><a href="{{ path('carrera_show', { 'idcarrera': carrera.idcarrera }) }}">{{ carrera.nombre }}</a></td>
                 <td>{{ carrera.idcarrera }}</td>
                 <td>
                     <ul>
                         <li>
-                            <a href="{{ path('carrera_show', { 'idcarrera': carrera.idcarrera }) }}">show</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('carrera_show', { 'idcarrera': carrera.idcarrera }) }}">show</a>
                         </li>
                         <li>
-                            <a href="{{ path('carrera_edit', { 'idcarrera': carrera.idcarrera }) }}">edit</a>
+                            <a class="btn btn-dark btn-sm btn-block" href="{{ path('carrera_edit', { 'idcarrera': carrera.idcarrera }) }}">edit</a>
                         </li>
                     </ul>
                 </td>
@@ -32,12 +32,9 @@
         </tbody>
     </table>
     <br>
-    <br>
-    <br>
-    <ul>
+    <ul align="center">
         <li>
-            <a href="{{ path('carrera_new') }}">Create a new carrera</a>
+            <a class="btn btn-dark btn-lg" href="{{ path('carrera_new') }}">Create a new carrera</a>
         </li>
     </ul>
-    </div>
 {% endblock %}

@@ -1,36 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="estilo-body">
-    <h1>Carrera</h1>
-    <br>
-    <table>
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Idcarrera</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{ carrera.nombre }}</td>
-                <td>{{ carrera.idcarrera }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <ul>
-        <li>
-            <a href="{{ path('carrera_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('carrera_edit', { 'idcarrera': carrera.idcarrera }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
-    </div>
+        <br>
+        <h1 align="center">Carrera</h1>
+        <br>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Idcarrera</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">{{ carrera.nombre }}</td>
+                    <td>{{ carrera.idcarrera }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div align="center">
+            <ul class="btn-group" role="group">
+                <li>
+                    <a class="btn btn-dark" href="{{ path('carrera_index') }}">Back to the list</a>
+                </li>
+                <li>
+                    <a class="btn btn-dark" href="{{ path('carrera_edit', { 'idcarrera': carrera.idcarrera }) }}">Edit</a>
+                </li>
+                <li>
+                    {{ form_start(delete_form) }}
+                        <input class="btn btn-dark" type="submit" value="Delete">
+                    {{ form_end(delete_form) }}
+                </li>
+            </ul>
+        </div>
 {% endblock %}
