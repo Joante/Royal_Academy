@@ -8,6 +8,7 @@ use RoyalAcademyBundle\Entity\Pregunta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
  * GestorExamen controller.
@@ -128,7 +129,10 @@ class GestorExamenController extends Controller
      * @Method({"GET", "POST"})
      */
     public function examenManAction()
-    {
+    {   
+        $pregunta = new Pregunta;
+        $Examen = new Examen;
+
         if (empty($_POST['chkPreguntas']))
         {
             return $this->redirect('http://localhost:8000/gestor_examen/error'.urlencode('?').'errCode=1');   
@@ -142,11 +146,23 @@ class GestorExamenController extends Controller
             {return $this->redirect('http://localhost:8000/gestor_examen/error'.urlencode('?').'errCode=2');}
 
             
+             // Persistencia a la tabla Examen    
+            $em = $this->getDoctrine()->getManager();
+                $em->persist($Examen);
+                $em->flush();
+
+            $em = $this->getDoctrine()->getManager();
+                $idExamen = $em->createQueryBuilder()
+                ->select('MAX(e.idexamen)')
+                ->from('RoyalAcademyBundle:Examen', 'e')
+                ->getQuery()
+                ->getSingleScalarResult(); $idExamen = $idExamen;
+
+            $Examen->setIdExamen($idExamen);
+
+            
             foreach($preguntasSelec as $preg)
             {
-                // Persistencia a la tabla Examen
-
-
                 //Traigo las preguntas
                 $em = $this->getDoctrine()->getManager();
                 $query = $em->createQuery(
@@ -156,6 +172,9 @@ class GestorExamenController extends Controller
                                     ->setParameter('pregId', (int)$preg);
 
                 $lstPreguntas[(int)$preg] = $query->getResult();
+
+
+                
 
                 // Traigo la lista de respuestas
                 $em = $this->getDoctrine()->getManager();
@@ -168,7 +187,18 @@ class GestorExamenController extends Controller
                 $lstRespuestas[(int)$preg] = $query->getResult();
             }
 
-            // $lstPreguntas = array_slice($lstPreguntas, 0, 1);
+            foreach ($lstPreguntas as $aux)
+            {    
+                $pregunta->setDescripcion($aux[0]->getDescripcion());
+                $pregunta-> setExamenexamen($Examen);
+
+                $em = $this->getDoctrine()->getManager();
+                    $em->persist($pregunta);
+                    $em->flush();
+
+            }
+            
+
         }
                 
         return $this->render('gestorExamen/examen.html.twig', array(
@@ -192,7 +222,7 @@ class GestorExamenController extends Controller
         parse_str($url_components['query'], $params);
         $errCode = $params['errCode'];
 
-        if($errCode == 2){$errorMsg[1]= "No se selecciono ninguna pregunta";}
+        if($errCode == 1){$errorMsg[1]= "No se selecciono ninguna pregunta";}
 
         if($errCode == 2){$errorMsg[1]= "Se seleccionaron demasiadas preguntas. Desmarque algunas para continuar (Limite 50)";}
 

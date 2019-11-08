@@ -32,6 +32,7 @@ class Examen
     private $fechaexamenfechaexamen;
 
 
+    
 
     /**
      * Get idexamen
@@ -42,6 +43,17 @@ class Examen
     {
         return $this->idexamen;
     }
+
+    /**
+     * Set idexamen
+     *  @param integer $descripcion
+     *  
+     */
+    public function setIdexamen($id)
+    {
+        $this->idexamen = $id;
+    }
+
 
     /**
      * Set fechaexamenfechaexamen

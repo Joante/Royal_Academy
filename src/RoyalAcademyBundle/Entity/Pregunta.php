@@ -40,6 +40,16 @@ class Pregunta
     private $examenexamen;
 
     /**
+     * @var \RoyalAcademyBundle\Entity\Materia
+     *
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Materia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idMateria", referencedColumnName="idMateria")
+     * })
+     */
+    private $idMateria;
+
+    /**
      * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta", cascade={"persist"})
      */
     private $respuestas;
