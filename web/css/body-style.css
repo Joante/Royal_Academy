@@ -1,3 +1,4 @@
+/*
 .estilo-body h1,.estilo-body h2{
     text-align: center;
     padding-bottom: 1rem;
@@ -8,7 +9,6 @@
     list-style-type: none;
     background-color: #333;
     text-align: center;
-    /*display: block;*/
     margin: 0;
     padding: 0;
 }
@@ -23,6 +23,7 @@
     cursor: pointer;
     transition: all 300ms;
 }
+
 
 .formulario{
     width: 300px;
@@ -67,7 +68,6 @@
     border: 0;
     outline: none;
     border-radius: 3px;
-    /*display: block;*/
     background-color:  #333;
     color: white;
     text-decoration: none;
@@ -82,4 +82,11 @@
     background-color:  black;
     cursor: pointer;
     transition: all 300ms;
+}
+*/
+
+/*Quita los puntos negros a las listas*/
+ul{
+    list-style:none;
+    padding-inline-start: 0px;
 }

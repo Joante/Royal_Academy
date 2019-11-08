@@ -2,21 +2,28 @@
 
 {% block body %}
     <div class="estilo-body">
+        <br>
         <h1>Gestor de preguntas</h1>
-        <div class="formulario">
+        <br>
+        <div class="container-form">
             {{ form_start(form) }}
-                <h3>Question</h3>
-                {{ form_row(form.descripcion) }}
-
-                <h3>Aswers</h3>
+                <h3>Pregunta</h3>
+                <div class="form-group">
+                     <div class="col">
+                        {{ form_row(form.descripcion, {'label': 'Descricion:'}) }}
+                    </div>
+                </div>
+                <h3>Respuestas</h3>
                 <ul class="respuestas" data-prototype="{{ form_widget(form.respuestas.vars.prototype)|e('html_attr') }}">
                     {# iterate over each existing tag and render its only field: name #}
                     {% for Respuesta in form.respuestas %}
-                        <li>{{ form_row(Respuesta.descripcion) }}</li>
-                        <li>{{ form_row(Respuesta.escorrecta) }}</li>
+                        <div class="form-row">
+                            <li>{{ form_row(Respuesta.descripcion, {'label': 'Respuesta:'}) }}</li>
+                            <li>{{ form_row(Respuesta.escorrecta, {'label': 'Correcta:'}) }}</li>
+                        </div>
                     {% endfor %}
                 </ul>
-                    <input type="submit" value="Create" class="bottom"/>
+                    <input type="submit" value="Create" class="btn btn-primary btn-lg"/>
             {{ form_end(form) }}
         </div>
         <ul>

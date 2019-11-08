@@ -1,7 +1,7 @@
 // setup an "add a respuesta" link
 //configurar un enlace "agregar una respuesta"
-var $addRespuestaLink = $('<a href="#" class="add_respuesta_link">Add a respuesta</a>');
-var $newLinkLi = $('<li></li>').append($addRespuestaLink);
+var $addRespuestaLink = $('<a href="#" class="add_respuesta_link btn btn-dark btn-sm">Add a respuesta</a>');
+var $newLinkLi = $('<li class"col"></li>').append($addRespuestaLink);
 
 jQuery(document).ready(function() {
     // Get the ul that holds the collection of respuestas
@@ -48,10 +48,10 @@ function addRespuestaForm($collectionHolder, $newLinkLi) {
     $collectionHolder.data('index', index + 1);
     
     // Display the form in the page in an li, before the "Add a respuesta" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<li class="col"></li>').append(newForm);
     
     // also add a remove button, just for this example
-    $newFormLi.append('<a href="#" class="remove-respuesta">x</a>');
+    $newFormLi.append('<a href="#" class="remove-respuesta btn btn-outline-danger btn-sm ">x</a>');
     
     $newLinkLi.before($newFormLi);
     
