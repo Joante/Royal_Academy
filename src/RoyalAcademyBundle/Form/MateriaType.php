@@ -5,30 +5,22 @@ namespace RoyalAcademyBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class PreguntaType extends AbstractType
+class MateriaType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('descripcion');
-
-        $builder->add('respuestas', CollectionType::class, [
-                    'entry_type' => RespuestaType::class,
-                    'entry_options' => ['label' => false],
-                    'allow_add' => true,
-                    'by_reference' => false,
-                ]);
+        $builder->add('nombre')->add('cantmax')->add('cantactual')->add('alumnoalumno')->add('carreracarrera');
     }/**
      * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'RoyalAcademyBundle\Entity\Pregunta'
+            'data_class' => 'RoyalAcademyBundle\Entity\Materia'
         ));
     }
 
@@ -37,7 +29,7 @@ class PreguntaType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'royalacademybundle_pregunta';
+        return 'royalacademybundle_materia';
     }
 
 

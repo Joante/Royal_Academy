@@ -1,20 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Pregunta edit</h1>
+    <h1>Respuestum edit</h1>
 
     {{ form_start(edit_form) }}
         {{ form_widget(edit_form) }}
-        {% for Respuesta in edit_form.respuestas %}
-            {{ form_row(Respuesta.descripcion) }}
-            {{ form_row(Respuesta.escorrecta) }}
-        {% endfor %}
-        <input type="submit" value="Edit"/>
+        <input type="submit" value="Edit" />
     {{ form_end(edit_form) }}
 
     <ul>
         <li>
-            <a href="{{ path('pregunta_index') }}">Back to the list</a>
+            <a href="{{ path('respuesta_index') }}">Back to the list</a>
         </li>
         <li>
             {{ form_start(delete_form) }}

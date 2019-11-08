@@ -23,7 +23,6 @@ use FOS\UserBundle\FOSUserEvents;
  */
 class AlumnoController extends Controller
 {
-
     /**
      * Lists all alumno entities.
      *

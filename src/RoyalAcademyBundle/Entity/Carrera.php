@@ -113,27 +113,27 @@ class Carrera
     }
 
     /**
-     * Add materiamaterium
+     * Add materiamateria
      *
-     * @param \RoyalAcademyBundle\Entity\Materia $materiamaterium
+     * @param \RoyalAcademyBundle\Entity\Materia $materiamateria
      *
      * @return Carrera
      */
-    public function addMateriamaterium(\RoyalAcademyBundle\Entity\Materia $materiamaterium)
+    public function addMateriamateria(\RoyalAcademyBundle\Entity\Materia $materiamateria)
     {
-        $this->materiamateria[] = $materiamaterium;
+        $this->materiamateria[] = $materiamateria;
 
         return $this;
     }
 
     /**
-     * Remove materiamaterium
+     * Remove materiamateria
      *
-     * @param \RoyalAcademyBundle\Entity\Materia $materiamaterium
+     * @param \RoyalAcademyBundle\Entity\Materia $materiamateria
      */
-    public function removeMateriamaterium(\RoyalAcademyBundle\Entity\Materia $materiamaterium)
+    public function removeMateriamateria(\RoyalAcademyBundle\Entity\Materia $materiamateria)
     {
-        $this->materiamateria->removeElement($materiamaterium);
+        $this->materiamateria->removeElement($materiamateria);
     }
 
     /**
@@ -145,4 +145,10 @@ class Carrera
     {
         return $this->materiamateria;
     }
+
+    public function __toString()
+    {
+        return (string) $this->nombre;
+    }
+
 }

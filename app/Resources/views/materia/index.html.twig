@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Materias list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Cantmax</th>
+                <th>Cantactual</th>
+                <th>Idmateria</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for materia in materias %}
+            <tr>
+                <td><a href="{{ path('materia_show', { 'idmateria': materia.idmateria }) }}">{{ materia.nombre }}</a></td>
+                <td>{{ materia.cantmax }}</td>
+                <td>{{ materia.cantactual }}</td>
+                <td>{{ materia.idmateria }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('materia_show', { 'idmateria': materia.idmateria }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('materia_edit', { 'idmateria': materia.idmateria }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('materia_new') }}">Create a new materia</a>
+        </li>
+    </ul>
+{% endblock %}

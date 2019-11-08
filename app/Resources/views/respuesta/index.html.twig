@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Respuestas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Descripcion</th>
+                <th>Escorrecta</th>
+                <th>Idrespuesta</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for respuestum in respuestas %}
+            <tr>
+                <td><a href="{{ path('respuesta_show', { 'idrespuesta': respuestum.idrespuesta }) }}">{{ respuestum.descripcion }}</a></td>
+                <td>{% if respuestum.escorrecta %}Yes{% else %}No{% endif %}</td>
+                <td>{{ respuestum.idrespuesta }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('respuesta_show', { 'idrespuesta': respuestum.idrespuesta }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('respuesta_edit', { 'idrespuesta': respuestum.idrespuesta }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('respuesta_new') }}">Create a new respuestum</a>
+        </li>
+    </ul>
+{% endblock %}
