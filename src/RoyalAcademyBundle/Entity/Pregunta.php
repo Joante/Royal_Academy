@@ -1,13 +1,11 @@
 <?php
-
 namespace RoyalAcademyBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Pregunta
  *
  * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"Examen_idExamen"})}, indexes={@ORM\Index(name="fk_Pregunta_Examen1_idx", columns={"Examen_idExamen"})})
+ * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"idMateria"})}, indexes={@ORM\Index(name="fk_pregunta_materia1_idx", columns={"idMateria"})})
  * @ORM\Entity
  */
 class Pregunta
@@ -36,7 +34,19 @@ class Pregunta
      *   @ORM\JoinColumn(name="Examen_idExamen", referencedColumnName="idExamen")
      * })
      */
+
     private $examenexamen;
+
+    /**
+     * @var \RoyalAcademyBundle\Entity\Materia
+     *
+     * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Materia")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="idMateria", referencedColumnName="idMateria")
+     * })
+     */
+
+    private $idMateria;
 
 
 
@@ -50,7 +60,6 @@ class Pregunta
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-
         return $this;
     }
 
@@ -84,10 +93,9 @@ class Pregunta
     public function setExamenexamen(\RoyalAcademyBundle\Entity\Examen $examenexamen = null)
     {
         $this->examenexamen = $examenexamen;
-
         return $this;
     }
-
+    
     /**
      * Get examenexamen
      *
@@ -105,4 +113,15 @@ class Pregunta
      * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta")
      */
     private $respuestas;
+
+
+    /**
+     * Get idMateria
+     *
+     * @return integer
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
+    }
 }

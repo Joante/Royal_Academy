@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{# Pedazo de codigo de barra de navegacion superior #}
+
+<div class="top-bar foundation-5-top-bar">
+  <div class="top-bar-title">    
+    <strong>Royal Academy/Creacion de examenes</strong>
+  </div>
+  
+</div>
+
+
+
+{# Cuerpo de la pagina #}
+
+<h3 style="padding-left: 30px; text-align: left;">
+    <span style="color: #000000;"><span style="background-color: #ffffff;">
+        <span style="background-color: #000000;">
+            <span style="background-color: #ffffff;">
+            &nbsp;&nbsp;&nbsp; A continuaci&oacute;n se muestra el examen generado:</span></span></span></span>
+</h3>
+
+<br>
+
+{# Codigo de presentacion del examen #}
+
+<table class="table-expand">
+  <thead>
+    <tr class="table-expand-row">
+      <th>Preguntas: </th>
+    </tr>
+  </thead>
+  
+  {% for preg in lstPreguntas %}
+  <tbody>
+    <tr class="table-expand-row" data-open-details>
+      <td>{{ preg[0].getDescripcion() }}:</td>
+    </tr>
+
+    {% for resp in lstRespuestas[preg[0].getIdpregunta()] %}
+        <tr class="table-expand-row-content">
+        <td colspan="8" class="table-expand-row-nested">
+            <input type="radio" name="radRespuesta" value={{ resp.idrespuesta }} id="Resp_{{ resp.idrespuesta }}" required>
+            <label for="Preg_{{ resp.idrespuesta }}">{{ resp.getDescripcion() }}</label>
+        </td>
+        </tr>
+
+    {% endfor %}
+
+{% endfor %}
+
+  </tbody>
+</table>
+
+
+
+
+
+{% endblock %}

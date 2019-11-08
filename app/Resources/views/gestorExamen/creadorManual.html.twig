@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{# Pedazo de codigo de barra de navegacion superior #}
+
+<div class="top-bar foundation-5-top-bar">
+  <div class="top-bar-title">    
+    <strong>Royal Academy/Creacion de examenes</strong>
+  </div>
+  
+</div>
+
+
+
+{# Cuerpo de la pagina #}
+
+<h4 style="padding-left: 30px; text-align: left;">
+    <span style="color: #000000;"><span style="background-color: #ffffff;">
+        <span style="background-color: #000000;">
+            <span style="background-color: #ffffff;">
+            &nbsp;&nbsp;&nbsp; A continuaci&oacute;n podr&aacute; seleccionar las preguntas que desee que 
+            aparezcan en el ex&aacute;men marcando la casilla a su izquierda (recuerde que el l&iacute;mite de 
+            preguntas a elegir son 50), y proceda haciendo click en "Crear Examen".</span></span></span></span>
+</h4>
+
+
+{# Codigo de checkbox de preguntas #}
+
+
+<div class="preguntas">
+  <h3 class="preguntas-seleccion">
+    <span class="preguntas-label">Seleccion:</span>
+    Elija las preguntas que desee que formen parte del examen
+  </h3>
+
+  <form action="examen" method="post"> 
+    <div class="preguntas-options">
+      {% for pregunta in lstPreguntas %}
+    
+       <html><label><input type="checkbox" name="chkPreguntas[]" id="{{ pregunta.idpregunta }}"
+             value="{{ pregunta.idpregunta }}"> 
+            {{ pregunta.getDescripcion() }}</label><br></html>
+      {% endfor %}
+    
+    </div>
+    
+    <br>
+    
+    <input type="submit" name="formSubmit" value="Crear Examen"> <br>
+    </form>      
+  
+</div>
+
+{% endblock %}

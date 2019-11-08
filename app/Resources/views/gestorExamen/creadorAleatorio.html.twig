@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{# Pedazo de codigo de barra de navegacion superior #}
+
+<div class="top-bar foundation-5-top-bar">
+  <div class="top-bar-title">   
+    <strong>Royal Academy/Creacion de examenes</strong>
+  </div>
+  
+</div>
+
+
+
+{# Cuerpo de la pagina #}
+
+<div class="preguntas">
+  <h3 class="preguntas-seleccion">
+    <span class="preguntas-label">Seleccion:</span>
+    Elija las preguntas que desee que formen parte del examen
+  </h3>
+
+  <form action="examen" method="post"> 
+    <div class="preguntas-options">
+
+      {% for pregunta in pregAleatoria %}
+        
+        <html><label><input type="checkbox" name="chkPreguntas[]" id="{{ pregunta.idpregunta }}"
+              value="{{ pregunta.idpregunta }}" checked= valor> 
+              {{ pregunta.getDescripcion() }}</label><br></html>
+      {% endfor %}
+    
+    </div>
+    
+    <br>
+    
+    <input type="submit" name="formSubmit" value="Crear Examen"> <br>
+    </form>      
+  
+</div>
+
+{% endblock %}
