@@ -5,6 +5,10 @@ namespace RoyalAcademyBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class AlumnoType extends AbstractType
 {
@@ -13,7 +17,23 @@ class AlumnoType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('nombre')->add('dni')->add('edad')->add('sexo')->add('email')->add('sedesede')->add('usuariousuario')->add('fechaexamenfechaexamen')->add('materiamateria');
+        $builder->add('nombre', TextType::class, array(
+                        'label' => 'Nombre y Apellido: '))
+                ->add('dni', IntegerType::class, array(
+                        'label' => 'Documento de Identidad: '))
+                ->add('edad',IntegerType::class, array(
+                        'label' => 'Edad: '))
+                ->add('sexo', ChoiceType::class,[
+                    'choices'  => [
+                        'Masculino' => 'M',
+                        'Femenino' => 'F',
+                    ],
+                    'label' => 'Genero: ',
+                ])
+                ->add('sedesede', EntityType::class, [
+                        'class' => 'RoyalAcademyBundle:Sede',
+                        'choice_label' => 'nombre',
+                        'label' => 'Sede: ',]);
     }/**
      * {@inheritdoc}
      */

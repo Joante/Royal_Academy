@@ -1,0 +1,21 @@
+{% extends "base.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+	<body>
+    <div class="container">
+		<div class="row text-center">
+	        <div class="col-sm-6 col-sm-offset-3">
+		        <br><br> <h2 style="color:#0fad00">Success</h2>
+		        <img src="{{ asset('images/check_true.png') }}">
+		        <h3>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</h3>
+		        <p style="font-size:20px;color:#5C5C5C;">Muchas gracias por registrarse. Ahora por favor complete sus datos personales para terminar su registro.</p>
+		        <a href="/alumno/new/{{ 'registration.confirmed'|trans({'%email%': user.email}) }}" class="btn btn-success">     Completar datos      </a>
+		    	<br><br>
+	        </div>
+		</div>
+	</div>
+	<p></p>
+</body>
+{% endblock fos_user_content %}

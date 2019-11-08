@@ -1,16 +1,50 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form _self %}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    {%- if type == 'range' or type == 'color' -%}
+        {# Attribute "required" is not supported #}
+        {%- set required = false -%}
+    {%- endif -%}
+    <input class="form-control" type="{{ type }}"  {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
 {% block body %}
-    <h1>Alumno creation</h1>
+    <div class="titulo">
+        <h1 >Datos personales:</h1>
+    </div>
+    <div class="container-form">
+        <div class="row">
+                {{ form_start(form, { 'attr': {'class': 'form-crear'} }) }}
+                
+                {{ form_label(form.nombre, null, {'label_attr': {'class': 'row-form'}}) }}
+                {{ form_errors(form.nombre) }}
+                {{ form_widget(form.nombre) }}
+                
+                {{ form_label(form.dni, null, {'label_attr': {'class': 'row-form'}}) }}
+                {{ form_errors(form.dni) }}
+                {{ form_widget(form.dni) }}
+                
+                {{ form_label(form.edad, null, {'label_attr': {'class': 'row-form'}}) }}
+                {{ form_errors(form.edad) }}
+                {{ form_widget(form.edad) }}
+                
+                {{ form_label(form.sexo, null, {'label_attr': {'class': 'row-form-choice'}}) }}
+                {{ form_errors(form.sexo) }}
+                {{ form_widget(form.sexo) }}
+                <br/>
+                {{ form_label(form.sedesede, null, {'label_attr': {'class': 'row-form-choice'}}) }}
+                {{ form_errors(form.sedesede) }}
+                {{ form_widget(form.sedesede) }}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('alumno_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                <br/>
+                <br/>
+                <button class="btn btn-lg btn-primary btn-block" style="margin: 0 auto; width: 50%;" type="submit">Guardar</button>
+                <br/>
+                {{ form_end(form) }}
+        </div>
+    </div>
+    <br/>
 {% endblock %}

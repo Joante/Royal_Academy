@@ -22,10 +22,13 @@ security:
             #user_checker: fos_user.user_checker
             form_login:
                 provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
-
-            logout:       true
-            anonymous:    true
+                #csrf_token_generator: security.csrf.token_manager
+                login_path: fos_user_security_login
+                default_target_path: /alumno
+                always_use_default_target_path: false
+            logout: true
+            anonymous: true
+            stateless: false
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -33,8 +36,11 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+    role_hierarchy:
+        ROLE_ALUMNO: ROLE_SINCONF
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_AG }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/registrar, role:  IS_AUTHENTICATED_ANONYMOUSLY}
+        - { path: ^/resetting, role: ROLE_ALUMNO }
+        - { path: ^/admin, role: ROLE_AG }
+        - { path: ^/alumno, role: ROLE_SINCONF }

@@ -1,7 +1,5 @@
 <?php
-
 namespace RoyalAcademyBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -9,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Pregunta
  *
  * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"Examen_idExamen"})}, indexes={@ORM\Index(name="fk_Pregunta_Examen1_idx", columns={"Examen_idExamen"})})
+ * @ORM\Table(name="pregunta", uniqueConstraints={@ORM\UniqueConstraint(name="UNIQ_AEE0E1F786387D5E", columns={"idMateria"})}, indexes={@ORM\Index(name="fk_pregunta_materia1_idx", columns={"idMateria"})})
  * @ORM\Entity
  */
 class Pregunta
@@ -37,6 +36,7 @@ class Pregunta
      *   @ORM\JoinColumn(name="Examen_idExamen", referencedColumnName="idExamen")
      * })
      */
+
     private $examenexamen;
 
     /**
@@ -61,7 +61,6 @@ class Pregunta
     public function setDescripcion($descripcion)
     {
         $this->descripcion = $descripcion;
-
         return $this;
     }
 
@@ -95,10 +94,9 @@ class Pregunta
     public function setExamenexamen(\RoyalAcademyBundle\Entity\Examen $examenexamen = null)
     {
         $this->examenexamen = $examenexamen;
-
         return $this;
     }
-
+    
     /**
      * Get examenexamen
      *
@@ -132,5 +130,4 @@ class Pregunta
     {
         return (string) $this->descripcion;
     }
-    
-}
+  }

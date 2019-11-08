@@ -3,9 +3,11 @@
 namespace RoyalAcademyBundle\Controller;
 
 use RoyalAcademyBundle\Entity\Sede;
+use RoyalAcademyBundle\Entity\Pais;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Sede controller.
@@ -41,6 +43,20 @@ class SedeController extends Controller
     {
         $sede = new Sede();
         $form = $this->createForm('RoyalAcademyBundle\Form\SedeType', $sede);
+
+        
+        $em = $this->getDoctrine()->getManager();
+                $paises = $em->getRepository('RoyalAcademyBundle:Pais')->findAll();
+/*
+        $form->add("Pais", EntityType::class, [
+            "mapped" => false,            
+            'class' => Pais::class,            
+            'choices' => $paises,
+//            'data' => $examenAcorregir,
+        ]);
+*/
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

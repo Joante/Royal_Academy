@@ -5,7 +5,16 @@ namespace RoyalAcademyBundle\Controller;
 use RoyalAcademyBundle\Entity\Alumno;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use RoyalAcademyBundle\Entity\Usuario;
+use RoyalAcademyBundle\Entity\Rolusuario;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use FOS\UserBundle\Model\UserInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
 
 /**
  * Alumno controller.
@@ -22,7 +31,19 @@ class AlumnoController extends Controller
      */
     public function indexAction()
     {
+        $user = $this->getUser();
+
         $em = $this->getDoctrine()->getManager();
+
+        $alumno = $em->getRepository('RoyalAcademyBundle:Alumno')->findOneBy([
+            'usuariousuario' => $user->getId(),
+        ]);
+        if($alumno== null){
+            $response = $this->forward('RoyalAcademyBundle:Alumno:new', [
+                'email'  => $user->getEmail(),
+            ]);   
+            return $response;
+        }
 
         $alumnos = $em->getRepository('RoyalAcademyBundle:Alumno')->findAll();
 
@@ -39,15 +60,43 @@ class AlumnoController extends Controller
      */
     public function newAction(Request $request)
     {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $beforeAlumno = $em->getRepository('RoyalAcademyBundle:Alumno')->findOneBy([
+            'usuariousuario' => $user->getId(),
+        ]);
+        if($beforeAlumno != null){
+            $response = $this->forward('RoyalAcademyBundle:Alumno:index');   
+            return $response;
+        }
         $alumno = new Alumno();
         $form = $this->createForm('RoyalAcademyBundle\Form\AlumnoType', $alumno);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $alumno->setUsuariousuario($user);
+            $alumno->setEmail($user->getEmail());
             $em->persist($alumno);
             $em->flush();
 
+            $repository = $em->getRepository(Rolusuario::class);
+            $rolObj = $repository->findOneBy([
+                'idrolusuario' => 1,
+            ]);
+
+            $rol = $rolObj->getRol();
+
+            
+            $userManager = $this->container->get('fos_user.user_manager');
+            $user->removeRole('ROLE_SINCONF');
+            $user->addRole($rol);
+            $userManager->updateUser($user);
+
+            $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, null, 'main', $user->getRoles()
+            );
+
+            $this->container->get('security.context')->setToken($token);
+            
             return $this->redirectToRoute('alumno_show', array('idalumno' => $alumno->getIdalumno()));
         }
 
@@ -60,16 +109,21 @@ class AlumnoController extends Controller
     /**
      * Finds and displays a alumno entity.
      *
-     * @Route("/{idalumno}", name="alumno_show")
+     * @Route("/datos", name="alumno_show")
      * @Method("GET")
      */
-    public function showAction(Alumno $alumno)
+    public function showAction()
     {
-        $deleteForm = $this->createDeleteForm($alumno);
+        $user = $this->getUser();
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $alumno = $em->getRepository('RoyalAcademyBundle:Alumno')->findOneBy([
+            'usuariousuario' => $user->getId(),
+        ]);
 
         return $this->render('alumno/show.html.twig', array(
             'alumno' => $alumno,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -116,6 +170,70 @@ class AlumnoController extends Controller
         }
 
         return $this->redirectToRoute('alumno_index');
+    }
+
+    /**
+     * Finds and displays a user entity.
+     *
+     * @Route("/perfil/", name="alumno_show_user")
+     * @Method("GET")
+     */
+    public function showUserAction()
+    {
+        $user = $this->getUser();
+
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $userManager = $this->container->get('fos_user.user_manager');
+        $email = $user->getEmail();
+
+        $em = $this->getDoctrine()->getManager();
+        $alumno = $em->getRepository('RoyalAcademyBundle:Alumno')->findOneBy([
+            'usuariousuario' => $user->getId(),
+        ]);
+        return $this->render('@FOSUser/Profile/show.html.twig', array(
+            'user' => $user,
+            'idalumno' => $alumno->getIdalumno(),
+        ));
+    }
+
+    /**
+     * Edita un usuario
+     *
+     * @Route("/perfil/editar", name="alumno_edit_user")
+     * @Method("GET")
+     */
+    public function editUserAction(Request $request)
+    {
+        $user = $this->getUser();
+
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
+
+        $userForm = $this->createForm('RoyalAcademyBundle\Form\ProfileFormType', $user);
+        $userForm->handleRequest($request);
+
+        $email = $user->getEmail();
+
+        $em = $this->getDoctrine()->getManager();
+        $alumno = $em->getRepository('RoyalAcademyBundle:Alumno')->findOneBy([
+            'usuariousuario' => $user->getId(),
+        ]);
+
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $userManager = $this->container->get('fos_user.user_manager');
+            $userManager->updateUser($user);
+
+            return $this->redirectToRoute('alumno_edit_user');
+        }
+
+        return $this->render('@FOSUser/Profile/edit.html.twig', array(
+            'form' => $userForm->createView(),
+            'idalumno' => $alumno->getIdalumno(),
+        ));
     }
 
     /**

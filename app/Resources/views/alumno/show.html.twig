@@ -1,48 +1,80 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Alumno</h1>
-
-    <table>
-        <tbody>
-            <tr>
-                <th>Nombre</th>
-                <td>{{ alumno.nombre }}</td>
-            </tr>
-            <tr>
-                <th>Dni</th>
-                <td>{{ alumno.dni }}</td>
-            </tr>
-            <tr>
-                <th>Edad</th>
-                <td>{{ alumno.edad }}</td>
-            </tr>
-            <tr>
-                <th>Sexo</th>
-                <td>{{ alumno.sexo }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ alumno.email }}</td>
-            </tr>
-            <tr>
-                <th>Idalumno</th>
-                <td>{{ alumno.idalumno }}</td>
-            </tr>
-        </tbody>
-    </table>
-
+<br/>
+  <div class="container" style = "margin-left: 0px !important">
+    <div class="row">
+      <div class="col-md-3 ">
+        <div class="list-group ">
+          <a href="#" class="list-group-item list-group-item-action active">Datos Personales</a>
+          <a href="{{ path('alumno_show_user') }}" class="list-group-item list-group-item-action">Usuario</a>
+          <a href="#" class="list-group-item list-group-item-action">Historial Academico</a>
+        </div> 
+      </div>
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>Datos Personales</h4>
+                <hr>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group row">
+                  <h6 class="col-4 col-form-label">Nombre y Apellido:</h6> 
+                  <div class="col-8">
+                    <h6 class="datos">{{ alumno.nombre }}</h6>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <h6 class="col-4 col-form-label">Documento de Identidad:</h6> 
+                  <div class="col-8">
+                    <h6 class="datos">{{ alumno.dni }}</h6>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <h6 class="col-4 col-form-label">Edad:</h6> 
+                  <div class="col-8">
+                    <h6 class="datos">{{ alumno.edad }}</h6>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <h6 class="col-4 col-form-label">Genero:</h6> 
+                  <div class="col-8">
+                    <h6 class="datos">{{ alumno.sexo }}</h6>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <h6 class="col-4 col-form-label">Email:</h6> 
+                  <div class="col-8">
+                    <h6 class="datos">{{ alumno.email }}</h6>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <h6 class="col-4 col-form-label">Sede:</h6> 
+                  <div class="col-8">
+                    <h6 class="datos">Nombre</h6>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="offset-4 col-8">
+                    <a href="{{ path('alumno_edit', { 'idalumno': alumno.idalumno }) }}" class="btn btn-primary">Actualizar Datos</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <br/>
     <ul>
         <li>
-            <a href="{{ path('alumno_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('alumno_edit', { 'idalumno': alumno.idalumno }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
+            <a href="{{ path('alumno_index') }}">Volver</a>
         </li>
     </ul>
 {% endblock %}

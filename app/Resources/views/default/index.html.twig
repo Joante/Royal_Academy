@@ -1,24 +1,30 @@
 {% extends 'base.html.twig' %}
-
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('css/flip-card.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/sbootstrap.min.css') }}" />
 {% endblock %}
-{% block header %}
-  <header>
-            <div class="top-bar-titulo">
-               <img id="logo" src="{{ asset('images/logo.png') }}" alt="Symfony!" />
-                <h2 id="capacitar">Capacit<span id="ar">AR</span></h2>
-            </div>
-  </header>
-{% endblock %}
+
 {% block body %}
       <br>
       <br>
       <div class="container">
+      {% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+        <div class="log-in">
+          {% block fos_user_content %}
+              {% if error %}
+                  <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+              {% endif %}
+              {{ include('@FOSUser/Security/login.html.twig') }}
+          {% endblock fos_user_content %}
+        </div>
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width: 67%; float:left;">
+        {% else %}
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      {% endif %}
+      
+        
           <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -53,32 +59,8 @@
             <span class="sr-only">Next</span>
           </a>
       </div>
-
-      <div class="log-in">
-        {#{% trans_default_domain 'FOSUserBundle' %}
-
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}#}
-
-        <form class="log-in-form" {#action="{{ path("fos_user_security_check") }}"#} method="post">
-          {#{% if csrf_token %}
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-          {% endif %}#}
-          <h4 class="text-center">Iniciar sesion con tu usuario o email:</h4>
-          <label for="username">Usuario:</label>
-            <input type="text" id="username" name="_username" {#value="{{ last_username }}"#}required="required" autocomplete="username" />
-          </label>
-          <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
-          <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-            <label for="remember_me">Recuerdame en esta computadora</label>
-          <p><input type="submit" class="button expanded" value="Iniciar sesion"></input></p>
-          <p class="text-center"><a href="#">¿Olvidaste tu contraseña?</a></p>
-        </form>
-      </div>
+      
     </div>
-  </div>
   <br>
   <br>
     <hr class="style13">
@@ -148,6 +130,9 @@
             </div>
         </div>
     </div>
+  </div>
+    <br/>
+    <br/>
   {% block javascripts %}
     <script src="{{ asset('js/jquery-slim.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
