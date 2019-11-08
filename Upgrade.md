@@ -7,9 +7,12 @@ v0.2:
 		
 		- Hacer un git fetch --all y un git pull.
 		- Correr el script de creacionTablaUsuario.sql.
+		- Correr el script Roles.sql
 		- Modificar los siguientes campos dentro del archivo parameters.yml:
 			- mailer_user: racademyunla@gmail.com
 			- mailer_password: unla2019
+		- Modificar el siguiente campo dentro del archivo services.yml:
+			- public: true
 		- Correr el siguiente comando en la carpeta raiz: php composer.phar dump-autoload
 		- Correr el siguiente comando en la carpeta raiz: php bin/console cache:clear
 		Fin.

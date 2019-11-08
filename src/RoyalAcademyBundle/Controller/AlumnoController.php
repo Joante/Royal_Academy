@@ -95,7 +95,7 @@ class AlumnoController extends Controller
             $token = new \Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken($user, null, 'main', $user->getRoles()
             );
 
-            $this->container->get('security.context')->setToken($token);
+            $this->container->get('security.token_storage')->setToken($token);
             
             return $this->redirectToRoute('alumno_show', array('idalumno' => $alumno->getIdalumno()));
         }
