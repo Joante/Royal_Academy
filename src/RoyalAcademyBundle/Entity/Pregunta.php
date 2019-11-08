@@ -40,6 +40,11 @@ class Pregunta
     private $examenexamen;
 
     /**
+     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta", cascade={"persist"})
+     */
+    private $respuestas;
+
+    /**
      * @var \RoyalAcademyBundle\Entity\Materia
      *
      * @ORM\ManyToOne(targetEntity="RoyalAcademyBundle\Entity\Materia")
@@ -48,11 +53,6 @@ class Pregunta
      * })
      */
     private $idMateria;
-
-    /**
-     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\Respuesta", mappedBy="preguntapregunta", cascade={"persist"})
-     */
-    private $respuestas;
 
 
     public function __construct()
@@ -132,6 +132,30 @@ class Pregunta
     public function removeRespuesta(Respuesta $respuesta)
     {
         $this->respuestas->remove($respuesta);
+    }
+
+
+     /**
+     * Set idMateria
+     *
+     * @param \RoyalAcademyBundle\Entity\Materia $idmateria
+     *
+     * @return Pregunta
+     */
+    public function setIdMateria(\RoyalAcademyBundle\Entity\Materia $idmateria = null)
+    {
+        $this->idMateria = $idmateria;
+        return $this;
+    }
+    
+    /**
+     * Get idMateria
+     *
+     * @return \RoyalAcademyBundle\Entity\Materia
+     */
+    public function getIdMateria()
+    {
+        return $this->idMateria;
     }
 
 
