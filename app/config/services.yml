@@ -4,6 +4,18 @@ parameters:
     #parameter_name: value
 
 services:
+    acme_user.password_resetting:
+        class: RoyalAcademyBundle\Controller\RegistrarController
+        arguments: ['@router', '@fos_user.user_manager']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    app.form.registration:
+        class: RoyalAcademyBundle\Form\RegistrationFormType
+        tags:
+            - { name: form.type }
+
+
     # default configuration for services in *this* file
     _defaults:
         # automatically injects dependencies in your services
