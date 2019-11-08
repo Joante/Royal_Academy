@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>EXAMENES DEL ALUMNO</h1>
+    <table>
+        <thead>
+        <td>Alumno: 
+            <tr>
+                <td>{{alumno.nombre}}</td>
+                <td>{{alumno.dni}}</td>
+            </tr>
+            <tr>
+                <th>Nota</th>
+                <th>Fecha</th>
+                <th>Turno</th>
+                <th>Fechainicio</th>
+                <th>Completado</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for examenrealizado in examenrealizados %}
+            <tr>                
+                <td>{{ examenrealizado.nota }}</td>
+                <td>{% if examenrealizado.fecha %}{{ examenrealizado.fecha|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ examenrealizado.turno }}</td>            
+                <td>{% if examenrealizado.fechainicio %}{{ examenrealizado.fechainicio|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if examenrealizado.estacompletado %}{{"SI"}} {% else %} {{"NO"}}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a  {% if examenrealizado.estacompletado == 0 %} href="{{ path('examenrealizado_realizando', {'idexamenrealizado':examenrealizado.idexamenrealizado,'idalumno':alumno.idalumno}) }} {% endif %}  ">Realizar Examen</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

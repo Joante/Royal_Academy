@@ -1,0 +1,43 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if not is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
+<form class="log-in-form" action="{{ path("fos_user_security_check") }}" method="post">
+        {% if csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        {% endif %}
+      <h4 class="text-center">Iniciar sesion con tu usuario o email:</h4>
+      <label for="username">Usuario:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" autocomplete="username" />
+      </label>
+      <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="_password" required="required" autocomplete="current-password" />
+      <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">Recuerdame en esta computadora</label>
+      <p><input type="submit" class="button expanded" value="Iniciar sesion"></input></p>
+      <p class="text-center"><a href="{{ path("fos_user_resetting_request") }}">¿Olvidaste tu contraseña?</a></p>
+      <p class="text-center"><a href="/registrar">Registrarse</a></p>
+</form>
+{% else %}
+  {% block javascripts %}
+    {% if is_granted('ROLE_ALUMNO') or is_granted('ROLE_SINCONF') %}
+      <script type = "text/javascript">
+           <!--
+              function Redirect() {
+                 window.location = "/alumno";
+              }            
+              setTimeout('Redirect()', 1);
+           //-->
+        </script>
+    {% else %}
+      <script type = "text/javascript">
+        <!--
+          function Redirect() {
+            window.location = "/admin";
+          }            
+          setTimeout('Redirect()', 1);
+        //-->
+      </script>
+    {% endif %}
+    {% endblock %}
+{% endif %}

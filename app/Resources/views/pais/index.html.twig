@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="estilo-body">
+    <h1>Pais list</h1>
+    <br>
+    <div class="container-fluid">
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>ID Pais</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for pais in pais %}
+            <tr>
+                <td><a href="{{ path('pais_show', { 'idpais': pais.idpais }) }}">{{ pais.nombre }}</a></td>
+                <td>{{ pais.idpais }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('pais_show', { 'idpais': pais.idpais }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('pais_edit', { 'idpais': pais.idpais }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <br>
+    <br>
+    <ul>
+        <li>
+            <a href="{{ path('pais_new') }}">Create a new pais</a>
+        </li>
+    </ul>
+    </div>
+</div>
+{% endblock %}

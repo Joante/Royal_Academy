@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Examens list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Idexamen</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for examen in examens %}
+            <tr>
+                <td><a href="{{ path('examen_show', { 'idexamen': examen.idexamen }) }}">{{ examen.idexamen }}</a></td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('examen_show', { 'idexamen': examen.idexamen }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('examen_edit', { 'idexamen': examen.idexamen }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('examen_new') }}">Create a new examen</a>
+        </li>
+    </ul>
+{% endblock %}

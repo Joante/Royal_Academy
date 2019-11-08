@@ -241,4 +241,7 @@ class Fechaexamen
     {
         return $this->alumnoalumno;
     }
+    public function __toString(){
+        return (string)$this->getFecha()->format('Y-m-d H:i:s');
+    }
 }

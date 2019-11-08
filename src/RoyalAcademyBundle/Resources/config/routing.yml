@@ -1,0 +1,7 @@
+royal_academy_yes:
+    resource: "@RoyalAcademyBundle/Resources/config/routing/examen.php"
+    prefix:   /yes
+
+royal_academy_examen:
+        resource: "@RoyalAcademyBundle/Resources/config/routing/examen.php"
+        prefix:   /examen

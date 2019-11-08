@@ -184,4 +184,15 @@ class Respuesta
     {
         return $this->examenrealizadoexamenrealizado;
     }
+    
+
+    public function __toString()
+    {
+        return (string) $this->descripcion;
+    }
+    /**
+     * @ORM\OneToMany(targetEntity="RoyalAcademyBundle\Entity\examenrealizado_has_respuesta", mappedBy="respuesta_idrespuesta")
+     */
+    private $respuesta_idrespuesta;
+
 }
