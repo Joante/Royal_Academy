@@ -13,23 +13,7 @@
   <div class="top-bar-title">    
     <strong>Royal Academy/Creacion de examenes</strong>
   </div>
-  <div id="responsive-menu">
-    <div class="top-bar-left">
-      <ul class="dropdown vertical medium-horizontal menu"
-                data-responsive-menu="drilldown medium-dropdown" data-auto-height="true" data-animate-height="true">
-        {# <li><a href="{{ path('gestor_examen_manual') }}">Creador Manual</a></li>
-        <li><a href="#">Creador Automatico</a></li> #}
-      </ul>
-    </div>
-    <div class="top-bar-right">
-      <ul class="menu">
-        <h4 style="text-align: right;">
-        <span style="text-decoration: underline; background-color: #ffffff; color: #ffffff;">
-            <strong><span style="background-color: #008000;">10/10/2019&nbsp;&nbsp;&nbsp;00:58:2</span>8</strong></span>
-        </h4>
-      </ul>
-    </div>
-  </div>
+  
 </div>
 
 {#Codigo de mensaje de presentacion#}
@@ -61,10 +45,10 @@
 {# Codigo de seleccion de materia #}
 
 <div class="materias">
-  <h5 class="materias-seleccion">
+  <h3 class="materias-seleccion">
     <span class="materias-label">Consulta:</span>
     De que materia sera el examen?
-  </h5>
+  </h3>
 
   <form action="selector" method="post"> 
     <div class="materias-options">
@@ -78,10 +62,10 @@
     </div>
     
     <br>
-    <h5 class="gestor-seleccion">
+    <h3 class="gestor-seleccion">
       <span class="gestor-label">Gestor:</span>
       Seleccione el tipo de gestor
-    </h5>
+    </h3>
      
 
     <div class="gestor-options">
@@ -96,6 +80,7 @@
     </div>
     <br>
 
+    <br>
     <input type="submit" name="formSubmit" value="Siguiente"> <br>
     </form>      
   

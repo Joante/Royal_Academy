@@ -80,8 +80,17 @@ class GestorExamenController extends Controller
 
         $lstPreguntas = $query->getResult();
 
+        $pregDesordenadas= $lstPreguntas;
+        shuffle($pregDesordenadas);
+
+        for($i=0 ; $i<50; $i++)
+        {  $pregAleatoria[$i] = $pregDesordenadas[$i]; }
+
+        sort($pregAleatoria);
+
         return $this->render('gestorExamen/creadorAleatorio.html.twig', array(
-            'preguntas' => $preguntas
+            'lstPreguntas' => $lstPreguntas,
+            'pregAleatoria' => $pregAleatoria
         ));
     }
 
