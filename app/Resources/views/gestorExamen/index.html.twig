@@ -1,94 +1,64 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-
-{# Pedazo de codigo de barra de navegacion superior #}
-
-<div class="top-bar foundation-5-top-bar">
-  <div class="top-bar-title">    
-    <strong>Royal Academy/Creacion de examenes</strong>
-  </div>
-  
-</div>
-
-{#Codigo de mensaje de presentacion#}
-
-
-<h2 style="text-align: left;">
-    <span style="text-decoration: underline; background-color: #ffffff; color: #ffffff;">
-        <strong>Gestor de creaci&oacute;n de Ex&aacute;menes</strong></span>
-</h2>
-<h4 style="padding-left: 30px; text-align: left;">
-    <span style="color: #000000;"><span style="background-color: #ffffff;">
-        <span style="background-color: #000000;">
-            <span style="background-color: #ffffff;">
-            &nbsp;&nbsp;&nbsp; Bienvenido al gestor de ex&aacute;menes de Royal Academy. 
-                Por favor seleccione un m&eacute;todo de creaci&oacute;n en la parte de 
-                abajo. </span></span></span></span>
-</h4>
-<table style="width: 701px;">
-    <tbody>
-        <tr style="height: 25px;">
-            <td style="width: 25px; height: 25px;">&nbsp;</td>
-            <td style="width: 700px; height: 25px;">&nbsp;</td>
-        </tr>
-    </tbody>
-</table>
-<p>&nbsp;</p>
-
-
-{# Codigo de seleccion de materia #}
-
-<div class="materias">
-  <h3 class="materias-seleccion">
-    <span class="materias-label">Consulta:</span>
-    De que materia sera el examen?
-  </h3>
-  
-  <br>
-
-  <form action="selector" method="post"> 
-    <div class="materias-options">
-      {% for mat in lstMaterias %}
-      
-      <div>
-      <h5 style="padding-left: 30px;">
-        <input type="radio" name="radMateria" value={{ mat.idMateria }} id="Preg_{{ mat.idMateria }}" required>
-        <label for="Preg_{{ mat.idMateria }}">{{ mat.Nombre }}</label>
-        </h5>
-      </div>
-      
-      {% endfor %}
-    
-    </div>
-    
+  {#Codigo de mensaje de presentacion#}
     <br>
-    <h3 class="gestor-seleccion">
-      <span class="gestor-label">Gestor:</span>
-      Seleccione el tipo de gestor
+    <h1 align="center">Gestor de creaci&oacute;n de Ex&aacute;menes</h1>
+    <h5 align="center">Bienvenido al gestor de ex&aacute;menes de Royal Academy. 
+    Por favor seleccione un m&eacute;todo de creaci&oacute;n en la parte de abajo.
+    </h5>
+    <br>
+
+  {# Codigo de seleccion de materia #}
+
+  <div class="materias">
+    <h3 class="materias-seleccion">
+      <span class="materias-label">Consulta:</span>
+      De que materia sera el examen?
     </h3>
-     <br>
-
-    <div class="gestor-options" style="padding-left: 30px">
-      <div>
-        <input type="radio" name="radGestor" value="manual" id="gestorManual" required checked>
-        <label for="gestorManual">Gestor Manual</label>
-      </div>
-      <div>
-        <input type="radio" name="radGestor" value="automatico" id="gestorAutomatico" required>
-        <label for="gestorAutomatico">Gestor Automatico</label>
-      </div>
-    </div>
+    
     <br>
 
-    <br>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      <input type="submit" name="formSubmit" value="Siguiente" style="padding-left: 30px;padding-right: 30px;"> <br>
-    </form>      
-  
-</div>
-<br>
-<br>
+    <form action="selector" method="post"> 
+      <div class="materias-options">
+        {% for mat in lstMaterias %}
+        
+        <div>
+        <h5 style="padding-left: 30px;">
+          <input type="radio" name="radMateria" value={{ mat.idMateria }} id="Preg_{{ mat.idMateria }}" required>
+          <label for="Preg_{{ mat.idMateria }}">{{ mat.Nombre }}</label>
+          </h5>
+        </div>
+        
+        {% endfor %}
+      
+      </div>
+      
+      <br>
+      <h3 class="gestor-seleccion">
+        <span class="gestor-label">Gestor:</span>
+        Seleccione el tipo de gestor
+      </h3>
+      <br>
 
+      <div class="gestor-options" style="padding-left: 30px">
+        <div>
+          <input type="radio" name="radGestor" value="manual" id="gestorManual" required checked>
+          <label for="gestorManual">Gestor Manual</label>
+        </div>
+        <div>
+          <input type="radio" name="radGestor" value="automatico" id="gestorAutomatico" required>
+          <label for="gestorAutomatico">Gestor Automatico</label>
+        </div>
+      </div>
+      <br>
 
+      <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="submit" name="formSubmit" value="Siguiente" style="padding-left: 30px;padding-right: 30px;"> <br>
+      </form>      
+    
+  </div>
+  <br>
+  <br>
 {% endblock %}
