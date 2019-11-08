@@ -24,9 +24,9 @@
                 <a title="Inicio" href="{{ path ('index')}}"><img id="logo" src="{{ asset('images/logo.png') }}" href="" alt="Symfony!"/></a>
                 <h2 id="capacitar">Capacit<span id="ar">AR</span></h2>
             </div>
-            <nav class="menu">
+            <nav class="navegacion col-md-7">
                 {% if (app.request.pathinfo != "/") %}
-                    {% if (is_granted('ROLE_AG') and is_granted('ROLE_AS') and is_granted('ROLE_AP')) %}
+                    {% if (is_granted('ROLE_AG') or is_granted('ROLE_AS') or is_granted('ROLE_AP')) %}
                 <ul>
                     <li><a href="#">Alumnos</a>
                         <ul>
@@ -99,16 +99,15 @@
                         </ul>
                     </li>
                 </ul>
-                </nav>
+                
                 {% endif %}
                 {% endif %}
-                <nav class="logout">
                 {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                     <ul style="float:right;">
                         <li class="menu3"><a href="/logout">Salir</a></li>
                     </ul>
                 {% endif %}
-                </nav>
+            </nav>  
          </header>
         {% endblock %}
         {% block body %}{% endblock %}
