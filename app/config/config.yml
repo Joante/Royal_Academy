@@ -11,7 +11,7 @@ parameters:
 
 framework:
     #esi: ~
-    translator: ~
+    translator: { fallbacks: [es] }
     secret: '%secret%'
     router:
         resource: '%kernel.project_dir%/app/config/routing.yml'
@@ -78,5 +78,9 @@ fos_user:
     firewall_name: main
     user_class: RoyalAcademyBundle\Entity\Usuario
     from_email:
-        address: testapp@testapp.com #"%mailer_user%"
-        sender_name: Test App #"%mailer_user%"
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+    registration:
+       form:
+           type: RoyalAcademyBundle\Form\RegistrationFormType
+    use_username_form_type: false

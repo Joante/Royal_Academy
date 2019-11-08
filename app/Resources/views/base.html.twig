@@ -4,11 +4,11 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>{% block title %} CapacitAR! {% endblock %}</title>
+        <title>{% block title %}Royal Academy{% endblock %}</title>
         {% block stylesheets %}
             <link href="{{ asset('css/top_bar.css') }}" type="text/css" rel="stylesheet" />
             <link href="{{ asset('css/footer.css') }}" type="text/css" rel="stylesheet" />
-            <link href="{{ asset('css/tablas.css') }}" type="text/css" rel="stylesheet">
+            <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
             <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
             <link href="{{ asset('css/bootstrap.css') }}" type="text/css" rel="stylesheet">
             <link href="{{ asset('css/bootstrap-grid.css') }}" type="text/css" rel="stylesheet">
@@ -20,15 +20,42 @@
     <body>
         {% block header %}
         <header>
-             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="top-bar-titulo">
-                            <img id="logo" src="{{ asset('images/logo.png') }}" alt="Symfony!" />
-                            <h2 id="capacitar">Capacit<span id="ar">AR</span></h2>
-                        </div>
-                    </div>
-                    <nav class="navegacion col-md-7">
+            <div class="top-bar-titulo">
+                <a title="Inicio" href="{{ path ('index')}}"><img id="logo" src="{{ asset('images/logo.png') }}" href="" alt="Symfony!"/></a>
+                <h2 id="capacitar">Capacit<span id="ar">AR</span></h2>
+            </div>
+            <nav class="menu">
+                {% if (app.request.pathinfo != "/") %}
+                    {% if (is_granted('ROLE_AG') and is_granted('ROLE_AS') and is_granted('ROLE_AP')) %}
+                <ul>
+                    <li><a href="#">Alumnos</a>
+                        <ul>
+                            <li><a href="#">Crear</a></li>
+                            <li><a href="#">Eliminar</a></li>
+                            <li><a href="#">Modificar</a></li>
+                            <li><a href="#">Listar</a></li>
+                            <li><a href="#">Buscar</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu2"><a href="#">Pais</a>
+                        <ul>
+                            <li><a href="#">Crear</a></li>
+                            <li><a href="#">Eliminar</a></li>
+                            <li><a href="#">Modificar</a></li>
+                            <li><a href="#">Listar</a></li>
+                            <li><a href="#">Buscar</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu3"><a href="#">Sede</a>
+                        <ul>
+                            <li><a href="#">Crear</a></li>
+                            <li><a href="#">Eliminar</a></li>
+                            <li><a href="#">Modificar</a></li>
+                            <li><a href="#">Listar</a></li>
+                            <li><a href="#">Buscar</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu3"><a href="#">Preguntas</a>
                         <ul>
                             <li><a href="#">Alumnos</a>
                                 <ul>
@@ -70,9 +97,18 @@
                                 </ul>
                             </li>
                         </ul>
-                    </nav>
-                </div>
-            </div>          
+                    </li>
+                </ul>
+                </nav>
+                {% endif %}
+                {% endif %}
+                <nav class="logout">
+                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                    <ul style="float:right;">
+                        <li class="menu3"><a href="/logout">Salir</a></li>
+                    </ul>
+                {% endif %}
+                </nav>
          </header>
         {% endblock %}
         {% block body %}{% endblock %}

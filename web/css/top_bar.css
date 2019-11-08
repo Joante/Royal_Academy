@@ -54,6 +54,10 @@ header {
 
 .navegacion{
   display: flex;
+  margin-top: -70px;
+  margin-left: 250px;
+  height: 70px;
+  width: 80%;
   font-size: 18px;
   text-align: center;
 }
